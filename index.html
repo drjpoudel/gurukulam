@@ -1,1 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Results</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1, h2, h3, h4 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        #studentId {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultContainer {
+            margin-top: 20px;
+            text-align: left; /* Adjust alignment for result details */
+        }
+
+        /* Styles for gradesheet table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        /* Styling for the logo */
+        .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        /* Additional styles */
+        .signature-container {
+            display: none; /* Initially hide the signature container */
+            justify-content: space-between;
+            position: relative; /* Ensure relative positioning for absolute elements */
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+
+        .signature {
+            text-align: right; /* Align right for Principal's signature */
+            margin-right: 20px; /* Add margin for spacing */
+        }
+
+        .signature-left {
+            text-align: left; /* Align left for Checked by */
+            margin-left: 20px; /* Add margin for spacing */
+        }
+
+        .signature img {
+            max-width: 150px; /* Adjust max-width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcMPFAR86Q_qBs8lfpW2QrKu9VNPgnhwSIqjRx-ldgusljgy5tCoIIhHyUl5aCYaOlxisz_5SYuuGwGVvnaD9o1MCpXP-OajZNGaRstUYqMvY2eT7Oq08QgQaUzzSEFT1TSag-R7CkS2ivraI5fzEaHBUEXTXt8wZD2j8SL3jJTxtXoXxpgpweqsPrXK1W/s960/279368396_738699187493215_6371462388823386749_n.jpg" alt="School Logo" class="logo">
+        <h1>Shree LaxmiNarayan Sanskrit Gurukulam</h1>
+        <h2>Biratnagar Metropolitan City Ward-4 PipalChowk</h2>
+        <h3>श्रीलक्ष्मी नारायण संस्कृत गुरुकुलम </h3>
+        <h4>बिराटनगर महानगरपालिका वार्ड-४ कन्चन्बारी पीपलचौक </h4>
+
+        <form id="studentForm">
+            <label for="studentId">Enter Student ID:</label>
+            <input type="text" id="studentId" name="studentId">
+            <button type="submit">Show Results</button>
+        </form>
+        <div id="resultContainer"></div>
+
+        <!-- Signature container -->
+        <div class="signature-container" id="signatureContainer">
+            <div class="signature" id="principalSignature">
+                <p>Principal's Signature: <br>Mr Devraj Poudel</p>
+                <img src="principal_signature.png" alt="Principal's Signature">
+            </div>
+            <div class="signature-left" id="checkedBySignature">
+                <p>Checked by: <br>Pradumna Ghimire</p>
+                <img src="principal_signature_checked.png" alt="Checked by Principal">
+            </div>
+        </div>
+    </div>
+<script src="studentsData.js"></script>
+    <script src="main.js"></script>
+    <script>
+        const students = [
+            { id: '10-2080', name: 'Yaswanta Bhattarai', dob: '2065-01-15', fatherName: 'Ram Bhattarai', year: '2080', class: '7', subjects: { Nepali: 60, Math: 55, English: 50, Social: 45, Veda: 80, Karmakanda: 70, 'Sanskrit Bhasha': 85, Vyakarana: 80 } },
+            { id: '11-2080', name: 'Diwakar Nepal', dob: '2066-05-20', fatherName: 'Shyam Nepal', year: '2080', class: '7', subjects: { Nepali: 40, Math: 45, English: 55, Social: 35, Veda: 65, Karmakanda: 59, 'Sanskrit Bhasha': 70, Vyakarana: 75 } },
+            { id: '12-2080', name: 'Nishchal Kafle', dob: '2066-02-10', fatherName: 'Hari Kafle', year: '2080', class: '7', subjects: { Nepali: 50, Math: 49, English: 65, Social: 45, Veda: 67, Karmakanda: 80, 'Sanskrit Bhasha': 70, Vyakarana: 75 } },
+            { id: '13-2080', name: 'Rabin Niraula', dob: '2067-07-12', fatherName: 'Krishna Niraula', year: '2080', class: '7', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
+            { id: '14-2080', name: 'Rosan Nyoupane', dob: '2066-11-05', fatherName: 'Govinda Nyoupane', year: '2080', class: '7', subjects: { Nepali: 64, Math: 61, English: 65, Social: 50, Veda: 70, Karmakanda: 75, 'Sanskrit Bhasha': 78, Vyakarana: 82 } },
+            { id: '15-2080', name: 'Vishnu Ghimire', dob: '2067-03-28', fatherName: 'Narayan Ghimire', year: '2080', class: '7', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
+            { id: '16-2080', name: 'Bhaskar Koirala', dob: '2068-04-17', fatherName: 'Madhav Koirala', year: '2080', class: '6', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
+            { id: '17-2080', name: 'Kushal Bhattarai', dob: '2068-01-02', fatherName: 'Gopal Bhattarai', year: '2080', class: '6', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
+            { id: '18-2080', name: 'Bhuvan Dahal', dob: '2066-12-21', fatherName: 'Govinda Dahal', year: '2080', class: '7', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
+            { id: '19-2080', name: 'Sandesh Wagle', dob: '2067-09-11', fatherName: 'Chandra Wagle', year: '2080', class: '7', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
+            { id: '20-2080', name: 'Aravinda Pokhrel', dob: '2067-08-08', fatherName: 'Pratap Pokhrel', year: '2080', class: '7', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
+            { id: '21-2080', name: 'Pramit Bhandari', dob: '2068-02-15', fatherName: 'Narendra Bhandari', year: '2080', class: '6', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
+            { id: '22-2080', name: 'Arjun Dangal', dob: '2068-05-19', fatherName: 'Durga Dangal', year: '2080', class: '6', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
+            { id: '23-2080', name: 'Saksham Ghimire', dob: '2068-06-07', fatherName: 'Ramesh Ghimire', year: '2080', class: '6', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } }
+        ];
+
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const studentId = document.getElementById('studentId').value;
+            const student = students.find(student => student.id === studentId);
+            const resultContainer = document.getElementById('resultContainer');
+            const signatureContainer = document.getElementById('signatureContainer');
+
+            if (student) {
+                let totalMarks = 0;
+                let obtainedMarks = 0;
+
+                let resultHTML = `<h3>Student Details:</h3>
+                    <p><strong>Name:</strong> ${student.name}</p>
+                    <p><strong>Father's Name:</strong> ${student.fatherName}</p>
+                    <p><strong>Year:</strong> ${student.year}</p>
+                    <p><strong>Class:</strong> ${student.class}</p>
+                    <h3>Gradesheet:</h3>
+                    <table>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Full Marks</th>
+                            <th>Obtained Marks</th>
+                            <th>Grade</th>
+                        </tr>`;
+
+                for (const subject in student.subjects) {
+                    const marks = student.subjects[subject];
+                    obtainedMarks += marks;
+                    totalMarks += 100;
+                    const grade = getGrade(marks);
+                    resultHTML += `
+                        <tr>
+                            <td>${subject}</td>
+                            <td>100</td>
+                            <td>${marks}</td>
+                            <td>${grade}</td>
+                        </tr>`;
+                }
+
+                const percentage = (obtainedMarks / totalMarks) * 100;
+                const gpa = calculateGPA(percentage);
+                const overallGrade = getGrade(percentage);
+
+                resultHTML += `
+                    <tr>
+                        <td colspan="3"><strong>Total</strong></td>
+                        <td><strong>${obtainedMarks} / ${totalMarks}</strong></td>
+                    </tr>
+                    </table>
+                    <h3>Result:</h3>
+                    <p><strong>Percentage:</strong> ${percentage.toFixed(2)}%</p>
+                    <p><strong>GPA:</strong> ${gpa}</p>
+                    <p><strong>Grade:</strong> ${overallGrade}</p>
+                    <p><strong>Status:</strong> ${percentage >= 40 ? 'Pass' : 'Fail'}</p>`;
+
+                resultContainer.innerHTML = resultHTML;
+
+                // Show the signature container
+                signatureContainer.style.display = 'flex';
+            } else {
+                resultContainer.innerHTML = '<p>Student not found. Please check the ID and try again.</p>';
+
+                // Hide the signature container
+                signatureContainer.style.display = 'none';
+            }
+        });
+
+        function getGrade(marks) {
+            if (marks >= 90) return 'A+';
+            if (marks >= 80) return 'A';
+            if (marks >= 70) return 'B+';
+            if (marks >= 60) return 'B';
+            if (marks >= 50) return 'C+';
+            if (marks >= 40) return 'C';
+            return 'F';
+        }
+
+        function calculateGPA(percentage) {
+            if (percentage >= 90) return '4.0';
+            if (percentage >= 80) return '3.6';
+            if (percentage >= 70) return '3.2';
+            if (percentage >= 60) return '2.8';
+            if (percentage >= 50) return '2.4';
+            if (percentage >= 40) return '2.0';
+            return '0.0';
+        }
+    </script>
+</body>
+</html>
 
