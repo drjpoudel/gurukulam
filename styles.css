@@ -1,0 +1,106 @@
+    /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 1px solid #ccc; /* Border for the container */
+        }
+
+        h1, h2, h3, h4 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        #studentId {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultContainer {
+            margin-top: 20px;
+            text-align: left; /* Adjust alignment for result details */
+        }
+
+        /* Styles for gradesheet table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 1px solid #ddd; /* Border for the table */
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        /* Styling for the logo */
+        .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        /* Additional styles */
+        .signature-container {
+            display: none; /* Initially hide the signature container */
+            justify-content: space-between;
+            position: relative; /* Ensure relative positioning for absolute elements */
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+
+        .signature {
+            text-align: right; /* Align right for Principal's signature */
+            margin-right: 20px; /* Add margin for spacing */
+        }
+
+        .signature-left {
+            text-align: left; /* Align left for Checked by */
+            margin-left: 20px; /* Add margin for spacing */
+        }
+
+        .signature img {
+            max-width: 150px; /* Adjust max-width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
