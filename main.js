@@ -1,4 +1,4 @@
-<script>
+
     document.getElementById('studentForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const studentId = document.getElementById('studentId').value;
@@ -86,4 +86,3 @@
         if (percentage >= 40) return '2.0';
         return '0.0';
     }
-</script>
