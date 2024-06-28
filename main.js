@@ -84,5 +84,5 @@
         if (percentage >= 60) return '2.8';
         if (percentage >= 50) return '2.4';
         if (percentage >= 40) return '2.0';
-        return '0.0';
+        return 'N.A';
     }
