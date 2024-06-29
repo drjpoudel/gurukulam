@@ -1,6 +1,6 @@
 // studentsData.js
 const students = [
-    { id: '10-2080', name: 'Yaswanta Bhattarai', dob: '2065-01-15', fatherName: ' Bhattarai', year: '2080', class: '7', subjects: { Nepali: 60, Math: 55, English: 50, Social: 45, Veda: 80, Karmakanda: 70, 'Sanskrit Bhasha': 85, Vyakarana: 80 } },
+    { id: '10-2080', name: 'Yaswanta Bhattarai', dob: '2066-06-09', fatherName: ' Laxmikanta Bhattarai', year: '2080', class: '7', subjects: { Nepali: 60, Math: 55, English: 50, Social: 45, Veda: 80, Karmakanda: 70, 'Sanskrit Bhasha': 85, Vyakarana: 80 } },
     { id: '11-2080', name: 'Diwakar Nepal', dob: '2066-05-20', fatherName: ' Nepal', year: '2080', class: '7', subjects: { Nepali: 40, Math: 45, English: 55, Social: 35, Veda: 65, Karmakanda: 59, 'Sanskrit Bhasha': 70, Vyakarana: 75 } },
     { id: '12-2080', name: 'Nishchal Kafle', dob: '2066-02-10', fatherName: ' Kafle', year: '2080', class: '7', subjects: { Nepali: 50, Math: 49, English: 65, Social: 45, Veda: 67, Karmakanda: 80, 'Sanskrit Bhasha': 70, Vyakarana: 75 } },
     { id: '13-2080', name: 'Rabin Niraula', dob: '2067-07-12', fatherName: ' Niraula', year: '2080', class: '7', subjects: { Nepali: 35, Math: 30, English: 25, Social: 23, Veda: 45, Karmakanda: 50, 'Sanskrit Bhasha': 20, Vyakarana: 15 } },
