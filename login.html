@@ -89,7 +89,7 @@
             <h2>Login</h2>
             <input type="email" id="loginEmail" placeholder="Email"><br>
             <input type="password" id="loginPassword" placeholder="Password"><br>
-            <button id="loginBtn">Login</button>
+            <button onclick="login()">Login</button>
             <p><a href="#" onclick="showForgotPassword()">Forgot Password?</a></p>
             <p><a href="#" onclick="showSignUp()">Don't have an account? Sign Up</a></p>
         </div>
@@ -98,14 +98,14 @@
             <h2>Sign Up</h2>
             <input type="email" id="signUpEmail" placeholder="Email"><br>
             <input type="password" id="signUpPassword" placeholder="Password"><br>
-            <button id="signupBtn">Sign Up</button>
+            <button onclick="signUp()">Sign Up</button>
             <p><a href="#" onclick="showLogin()">Already have an account? Login</a></p>
         </div>
 
         <div id="forgotPasswordForm" class="form hidden">
             <h2>Forgot Password</h2>
             <input type="email" id="forgotPasswordEmail" placeholder="Email"><br>
-            <button id="resetPasswordBtn">Send Reset Email</button>
+            <button onclick="forgotPassword()">Send Reset Email</button>
             <p><a href="#" onclick="showLogin()">Back to Login</a></p>
         </div>
 
@@ -113,8 +113,8 @@
             <h2>Chat Room</h2>
             <div id="messages"></div>
             <input type="text" id="messageInput" placeholder="Enter your message">
-            <button id="sendMessageBtn">Send</button>
-            <button id="logoutBtn">Logout</button>
+            <button onclick="sendMessage()">Send</button>
+            <button onclick="logout()">Logout</button>
         </div>
     </div>
 
@@ -125,12 +125,12 @@
     <script>
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyCQynYzRuVzn417-apmWwhfeQ0zAypbw8A",
-            authDomain: "sri-vaishnava-stotramala-6ada9.firebaseapp.com",
-            projectId: "sri-vaishnava-stotramala-6ada9",
-            storageBucket: "sri-vaishnava-stotramala-6ada9.appspot.com",
-            messagingSenderId: "1944488283",
-            appId: "1:1944488283:web:f882a6fa8cd25970c2327e"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
         };
 
         // Initialize Firebase
@@ -147,16 +147,15 @@
         const chatContainer = document.getElementById('chatRoom');
         const loginEmail = document.getElementById('loginEmail');
         const loginPassword = document.getElementById('loginPassword');
-        const loginBtn = document.getElementById('loginBtn');
-        const signupBtn = document.getElementById('signupBtn');
-        const resetPasswordBtn = document.getElementById('resetPasswordBtn');
+        const loginBtn = document.querySelector('#loginForm button');
+        const signupBtn = document.querySelector('#signUpForm button');
+        const resetPasswordBtn = document.querySelector('#forgotPasswordForm button');
         const messagesDiv = document.getElementById('messages');
         const messageInput = document.getElementById('messageInput');
-        const sendMessageBtn = document.getElementById('sendMessageBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
+        const sendMessageBtn = document.querySelector('#chatRoom button:last-of-type');
 
         // Sign Up
-        signupBtn.addEventListener('click', () => {
+        function signUp() {
             const email = document.getElementById('signUpEmail').value;
             const password = document.getElementById('signUpPassword').value;
             auth.createUserWithEmailAndPassword(email, password)
@@ -167,10 +166,10 @@
                 .catch(error => {
                     console.error('Error signing up:', error);
                 });
-        });
+        }
 
         // Login
-        loginBtn.addEventListener('click', () => {
+        function login() {
             const email = loginEmail.value;
             const password = loginPassword.value;
             auth.signInWithEmailAndPassword(email, password)
@@ -183,10 +182,10 @@
                 .catch(error => {
                     console.error('Error logging in:', error);
                 });
-        });
+        }
 
-        // Reset Password
-        resetPasswordBtn.addEventListener('click', () => {
+        // Forgot Password
+        function forgotPassword() {
             const email = document.getElementById('forgotPasswordEmail').value;
             auth.sendPasswordResetEmail(email)
                 .then(() => {
@@ -196,18 +195,20 @@
                 .catch(error => {
                     console.error('Error sending password reset email:', error);
                 });
-        });
+        }
 
         // Logout
-        logoutBtn.addEventListener('click', () => {
-            auth.signOut().then(() => {
-                console.log('User signed out');
-                loginContainer.classList.remove('hidden');
-                chatContainer.classList.add('hidden');
-            }).catch(error => {
-                console.error('Error signing out:', error);
-            });
-        });
+        function logout() {
+            auth.signOut()
+                .then(() => {
+                    console.log('User signed out');
+                    loginContainer.classList.remove('hidden');
+                    chatContainer.classList.add('hidden');
+                })
+                .catch(error => {
+                    console.error('Error signing out:', error);
+                });
+        }
 
         // Listen for Auth State Changes
         auth.onAuthStateChanged(user => {
@@ -238,7 +239,7 @@
         }
 
         // Send Message
-        sendMessageBtn.addEventListener('click', () => {
+        function sendMessage() {
             const message = messageInput.value;
             const user = auth.currentUser;
             database.ref('messages').push({
@@ -246,7 +247,7 @@
                 uid: user.uid
             });
             messageInput.value = '';
-        });
+        }
 
         // Utility functions to show/hide forms
         function showForgotPassword() {
