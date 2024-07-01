@@ -171,14 +171,12 @@
             <ul class="history-list" id="history-list"></ul>
             <div class="history-content">
                 <button class="history" id="toggle-history">
-                    <span class="history-icon">-</span>
+                    <span class="history-icon">+</span> Toggle History
                 </button>
             </div>
         </div>
-        <!-- Audio element for button click sound -->
         <audio id="clickSound" src="button-click.mp3"></audio>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const display = document.getElementById('display');
@@ -187,7 +185,6 @@
             const historyList = document.getElementById('history-list');
             const toggleHistoryBtn = document.getElementById('toggle-history');
             const clickSound = document.getElementById('clickSound');
-
             let currentInput = '0';
             let firstOperand = null;
             let operator = null;
