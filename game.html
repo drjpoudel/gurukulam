@@ -175,8 +175,6 @@
     </style>
 </head>
 <body>
-    </br>
-    </br>
     <div class="calculator">
         <input type="text" id="display" readonly>
         <div class="keys">
@@ -249,6 +247,7 @@
                     const result = performCalculation[operator](firstOperand, inputValue);
                     history.push(`${firstOperand} ${operator} ${inputValue} = ${result}`);
                     updateHistory();
+                    saveHistoryToCookies();
                     currentInput = String(result);
                     firstOperand = result;
                 }
@@ -276,36 +275,53 @@
             function clearHistory() {
                 history = [];
                 updateHistory();
+                saveHistoryToCookies();
             }
 
             function updateHistory() {
                 historyDiv.innerHTML = history.map(entry => `<p>${entry}</p>`).join('');
             }
 
-            keys.addEventListener('click', (event) => {
+            function saveHistoryToCookies() {
+                document.cookie = `calculatorHistory=${JSON.stringify(history)}; path=/; max-age=31536000`;
+            }
+
+            function loadHistoryFromCookies() {
+                const cookieString = document.cookie.split('; ').find(row => row.startsWith('calculatorHistory='));
+                if (cookieString) {
+                    history = JSON.parse(cookieString.split('=')[1]);
+                    updateHistory();
+                }
+            }
+
+            loadHistoryFromCookies();
+
+            keys.addEventListener('click', function(event) {
                 const { target } = event;
                 if (!target.matches('button')) {
                     return;
                 }
 
-                if (target.classList.contains('operator') || target.classList.contains('special')) {
-                    handleOperator(target.textContent);
-                    display.value = currentInput;
-                    return;
-                }
-
-                switch (target.id) {
-                    case 'decimal':
+                switch (target.textContent) {
+                    case '.':
                         inputDecimal();
                         break;
-                    case 'clear':
+                    case 'C':
                         resetCalculator();
                         break;
-                    case 'delete':
+                    case '⌫':
                         deleteLastDigit();
                         break;
-                    case 'calculate':
+                    case '=':
                         handleOperator('=');
+                        break;
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '√':
+                    case '%':
+                        handleOperator(target.textContent);
                         break;
                     default:
                         inputDigit(target.textContent);
