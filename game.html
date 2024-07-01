@@ -20,6 +20,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden; /* Ensure sidebar overflow is hidden */
         }
         .calculator {
             margin-right: 20px;
@@ -71,6 +72,11 @@
             max-width: 200px;
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s ease-in-out; /* Smooth transition */
+            transform: translateX(0); /* Initially show sidebar */
+        }
+        .history.collapsed {
+            transform: translateX(-100%); /* Slide sidebar off-screen */
         }
         .history h2 {
             display: flex;
@@ -102,6 +108,23 @@
             padding: 10px;
             border-radius: 5px;
             word-wrap: break-word;
+        }
+        .toggle-sidebar-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2196f3;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* Initially hidden on large screens */
+        }
+        .toggle-sidebar-btn.show {
+            display: block; /* Show on small screens */
         }
     </style>
 </head>
@@ -147,18 +170,21 @@
             <ul class="history-list" id="history-list"></ul>
         </div>
     </div>
+    <button class="toggle-sidebar-btn" id="toggle-sidebar-btn">Toggle History</button>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const display = document.getElementById('display');
             const keys = document.querySelector('.keys');
+            const history = document.querySelector('.history');
             const historyList = document.getElementById('history-list');
             const clearHistoryBtn = document.getElementById('clear-history');
+            const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
             let currentInput = '0';
             let firstOperand = null;
             let operator = null;
             let awaitingNextInput = false;
             let memory = 0;
-            let history = [];
+            let historyData = [];
 
             function inputDigit(digit) {
                 if (awaitingNextInput) {
@@ -189,7 +215,7 @@
                     firstOperand = inputValue;
                 } else if (operator) {
                     const result = performCalculation[operator](firstOperand, inputValue);
-                    addHistory(`${firstOperand} ${operator} ${inputValue} = ${result}`);
+                    addToHistory(`${firstOperand} ${operator} ${inputValue} = ${result}`);
                     currentInput = String(result);
                     firstOperand = result;
                 }
@@ -226,14 +252,14 @@
                 }
             };
 
-            function factorial(n) {
-                if (n < 0) return NaN;
-                if (n === 0) return 1;
-                let result = 1;
-                for (let i = n; i > 1; i--) {
-                    result *= i;
+            function factorial(num) {
+                if (num === 0 || num === 1) {
+                    return 1;
                 }
-                return result;
+                for (let i = num - 1; i >= 1; i--) {
+                    num *= i;
+                }
+                return num;
             }
 
             function resetCalculator() {
@@ -243,60 +269,59 @@
                 awaitingNextInput = false;
             }
 
-            function addHistory(entry) {
-                history.push(entry);
-                updateHistory();
-            }
-
-            function updateHistory() {
-                historyList.innerHTML = history.map(item => `<li>${item}</li>`).join('');
-                localStorage.setItem('history', JSON.stringify(history));
-            }
-
-            function clearHistory() {
-                history = [];
+            function addToHistory(entry) {
+                historyData.push(entry);
+                localStorage.setItem('calculatorHistory', JSON.stringify(historyData));
                 updateHistory();
             }
 
             function loadHistory() {
-                const savedHistory = localStorage.getItem('history');
-                if (savedHistory) {
-                    history = JSON.parse(savedHistory);
+                const storedHistory = JSON.parse(localStorage.getItem('calculatorHistory'));
+                if (storedHistory) {
+                    historyData = storedHistory;
                     updateHistory();
                 }
             }
 
-            keys.addEventListener('click', function(event) {
+            function updateHistory() {
+                historyList.innerHTML = historyData.map(entry => `<li>${entry}</li>`).join('');
+            }
+
+            function clearHistory() {
+                historyData = [];
+                localStorage.removeItem('calculatorHistory');
+                updateHistory();
+            }
+
+            function toggleSidebar() {
+                history.classList.toggle('collapsed');
+            }
+
+            keys.addEventListener('click', (event) => {
                 const { target } = event;
                 if (!target.matches('button')) {
                     return;
                 }
 
-                switch (target.id) {
-                    case 'decimal':
-                        inputDecimal();
-                        break;
-                    case 'clear':
-                        resetCalculator();
-                        break;
-                    case 'delete':
-                        deleteLastDigit();
-                        break;
-                    case 'calculate':
-                        handleOperator('=');
-                        break;
-                    default:
-                        if (target.classList.contains('operator') || target.classList.contains('special') || target.classList.contains('memory')) {
-                            handleOperator(target.textContent);
-                        } else {
-                            inputDigit(target.textContent);
-                        }
+                if (target.classList.contains('operator') || target.classList.contains('special') || target.classList.contains('memory')) {
+                    handleOperator(target.textContent);
+                } else if (target.id === 'clear') {
+                    resetCalculator();
+                } else if (target.id === 'delete') {
+                    deleteLastDigit();
+                } else if (target.id === 'calculate') {
+                    handleOperator(target.textContent);
+                } else if (target.classList.contains('decimal')) {
+                    inputDecimal();
+                } else {
+                    inputDigit(target.textContent);
                 }
 
                 display.value = currentInput;
             });
 
             clearHistoryBtn.addEventListener('click', clearHistory);
+            toggleSidebarBtn.addEventListener('click', toggleSidebar);
 
             loadHistory();
         });
