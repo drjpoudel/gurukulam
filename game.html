@@ -3,181 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator with History</title>
+    <title>Advanced Calculator</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
-
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-            padding: 20px;
-            box-sizing: border-box;
+            background: #f5f5f5;
         }
-
         .calculator {
             background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            width: 100%;
-            max-width: 400px;
-            box-sizing: border-box;
-        }
-
-        .calculator #display {
-            width: 100%;
             padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        #display {
+            width: 100%;
+            padding: 10px;
             font-size: 1.5em;
             text-align: right;
-            border: none;
-            border-bottom: 2px solid #ccc;
-            margin-bottom: 20px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            box-sizing: border-box;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            border-radius: 5px;
         }
-
-        .calculator .keys {
+        .keys {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 10px;
         }
-
-        .calculator .keys button {
+        .keys button {
             padding: 15px;
             font-size: 1.2em;
-            background-color: #e0e0e0;
             border: none;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-
-        .calculator .keys button:hover {
-            background-color: #d1d1d1;
-            transform: scale(1.05);
-        }
-
-        .calculator .keys .operator {
-            background-color: #ff9800;
-            color: #fff;
-        }
-
-        .calculator .keys .operator:hover {
-            background-color: #e69500;
-        }
-
-        .calculator .keys .special {
-            background-color: #9c27b0;
-            color: #fff;
-        }
-
-        .calculator .keys .special:hover {
-            background-color: #8e24aa;
-        }
-
-        .calculator .keys .decimal {
-            background-color: #4caf50;
-            color: #fff;
-        }
-
-        .calculator .keys .decimal:hover {
-            background-color: #43a047;
-        }
-
-        .calculator .keys #clear,
-        .calculator .keys #delete {
-            background-color: #f44336;
-            color: #fff;
-        }
-
-        .calculator .keys #clear:hover,
-        .calculator .keys #delete:hover {
-            background-color: #e53935;
-        }
-
-        .calculator .keys #calculate {
-            background-color: #2196f3;
-            color: #fff;
-            grid-column: span 2;
-        }
-
-        .calculator .keys #calculate:hover {
-            background-color: #1e88e5;
-        }
-
-        .history {
-            margin-top: 20px;
-            background: #f1f1f1;
-            padding: 10px;
-            border-radius: 10px;
-            max-height: 150px;
-            overflow-y: auto;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-        }
-
-        .history h2 {
-            margin-top: 0;
-            font-size: 1.2em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .history p {
-            margin: 5px 0;
-            font-size: 0.9em;
-            color: #333;
-            word-wrap: break-word;
-        }
-
-        .clear-history-btn {
-            background-color: #f44336;
-            color: #fff;
-            border: none;
+            background: #e0e0e0;
             cursor: pointer;
             border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 0.9em;
-            transition: background-color 0.2s, transform 0.1s;
         }
-
-        .clear-history-btn:hover {
-            background-color: #e53935;
-            transform: scale(1.05);
+        .keys button.operator {
+            background: #ff9800;
+            color: #fff;
         }
-
-        @media (max-width: 400px) {
-            .calculator {
-                padding: 20px;
-            }
-
-            .calculator #display {
-                font-size: 1.2em;
-                padding: 15px;
-            }
-
-            .calculator .keys button {
-                padding: 10px;
-                font-size: 1em;
-            }
-
-            .calculator .keys #calculate {
-                grid-column: span 5;
-            }
+        .keys button.special {
+            background: #9c27b0;
+            color: #fff;
+        }
+        .keys button.memory {
+            background: #4caf50;
+            color: #fff;
+        }
+        .keys button#clear, .keys button#delete {
+            background: #f44336;
+            color: #fff;
+        }
+        .keys button#calculate {
+            background: #2196f3;
+            color: #fff;
+            grid-column: span 2;
         }
     </style>
 </head>
 <body>
-</body></br></br>
     <div class="calculator">
-</br>
         <input type="text" id="display" readonly>
         <div class="keys">
             <button class="operator">+</button>
@@ -192,10 +81,10 @@
             <button class="special">log</button>
             <button class="special">ln</button>
             <button class="special">x!</button>
-            <button class="special">M+</button>
-            <button class="special">M-</button>
-            <button class="special">MR</button>
-            <button class="special">MC</button>
+            <button class="memory">M+</button>
+            <button class="memory">M-</button>
+            <button class="memory">MR</button>
+            <button class="memory">MC</button>
             <button id="clear">C</button>
             <button id="delete">⌫</button>
             <button>7</button>
@@ -211,23 +100,16 @@
             <button class="decimal">.</button>
             <button id="calculate">=</button>
         </div>
-        <div class="history">
-            <h2>History <button class="clear-history-btn" id="clear-history">Clear History</button></h2>
-            <div id="history"></div>
-        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const display = document.getElementById('display');
             const keys = document.querySelector('.keys');
-            const historyDiv = document.getElementById('history');
-            const clearHistoryBtn = document.getElementById('clear-history');
             let currentInput = '0';
             let firstOperand = null;
             let operator = null;
             let awaitingNextInput = false;
             let memory = 0;
-            let history = [];
 
             function inputDigit(digit) {
                 if (awaitingNextInput) {
@@ -258,9 +140,6 @@
                     firstOperand = inputValue;
                 } else if (operator) {
                     const result = performCalculation[operator](firstOperand, inputValue);
-                    history.push(`${firstOperand} ${operator} ${inputValue} = ${result}`);
-                    updateHistory();
-                    saveHistoryToCookies();
                     currentInput = String(result);
                     firstOperand = result;
                 }
@@ -314,35 +193,6 @@
                 awaitingNextInput = false;
             }
 
-            function updateHistory() {
-                historyDiv.innerHTML = '';
-                history.forEach(entry => {
-                    const p = document.createElement('p');
-                    p.textContent = entry;
-                    historyDiv.appendChild(p);
-                });
-            }
-
-            function clearHistory() {
-                history = [];
-                updateHistory();
-                saveHistoryToCookies();
-            }
-
-            function saveHistoryToCookies() {
-                document.cookie = 'calculatorHistory=' + encodeURIComponent(JSON.stringify(history));
-            }
-
-            function loadHistoryFromCookies() {
-                const cookie = document.cookie.split('; ').find(row => row.startsWith('calculatorHistory='));
-                if (cookie) {
-                    history = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
-                    updateHistory();
-                }
-            }
-
-            loadHistoryFromCookies();
-
             keys.addEventListener('click', function(event) {
                 const { target } = event;
                 if (!target.matches('button')) {
@@ -386,8 +236,6 @@
 
                 display.value = currentInput;
             });
-
-            clearHistoryBtn.addEventListener('click', clearHistory);
         });
     </script>
 </body>
