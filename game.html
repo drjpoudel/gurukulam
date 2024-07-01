@@ -5,69 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Calculator</title>
     <link rel="stylesheet" href="styles.css">
-<style>
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
 
-.calculator {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 300px;
-}
+        .calculator {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 320px;
+        }
 
-.calculator #display {
-    width: 100%;
-    padding: 10px;
-    font-size: 2em;
-    text-align: right;
-    border: none;
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 10px;
-}
+        .calculator #display {
+            width: 100%;
+            padding: 15px;
+            font-size: 2em;
+            text-align: right;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
 
-.calculator .keys {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
+        .calculator .keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
 
-.calculator .keys button {
-    padding: 15px;
-    font-size: 1.2em;
-    background-color: #e0e0e0;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-}
+        .calculator .keys button {
+            padding: 20px;
+            font-size: 1.5em;
+            background-color: #e0e0e0;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
 
-.calculator .keys button:hover {
-    background-color: #d1d1d1;
-}
+        .calculator .keys button:hover {
+            background-color: #d1d1d1;
+        }
 
-.calculator .keys .operator {
-    background-color: #ff9800;
-    color: #fff;
-}
+        .calculator .keys .operator {
+            background-color: #ff9800;
+            color: #fff;
+        }
 
-.calculator .keys .operator:hover {
-    background-color: #e69500;
-}
+        .calculator .keys .operator:hover {
+            background-color: #e69500;
+        }
 
-.calculator .keys .decimal {
-    background-color: #4caf50;
-    color: #fff;
-}
+        .calculator .keys .decimal {
+            background-color: #4caf50;
+            color: #fff;
+        }
 
-</style>
+        .calculator .keys .decimal:hover {
+            background-color: #43a047;
+        }
+
+        .calculator .keys #clear {
+            background-color: #f44336;
+            color: #fff;
+        }
+
+        .calculator .keys #clear:hover {
+            background-color: #e53935;
+        }
+
+        .calculator .keys #calculate {
+            background-color: #2196f3;
+            color: #fff;
+            grid-column: span 2;
+        }
+
+        .calculator .keys #calculate:hover {
+            background-color: #1e88e5;
+        }
+    </style>
 </head>
 <body>
     <div class="calculator">
@@ -92,91 +117,91 @@ body {
             <button id="calculate">=</button>
         </div>
     </div>
-    <script">
-    document.addEventListener('DOMContentLoaded', function() {
-    const display = document.getElementById('display');
-    const keys = document.querySelector('.keys');
-    let currentInput = '0';
-    let firstOperand = null;
-    let operator = null;
-    let awaitingNextInput = false;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const display = document.getElementById('display');
+            const keys = document.querySelector('.keys');
+            let currentInput = '0';
+            let firstOperand = null;
+            let operator = null;
+            let awaitingNextInput = false;
 
-    function inputDigit(digit) {
-        if (currentInput === '0' || awaitingNextInput) {
-            currentInput = digit;
-            awaitingNextInput = false;
-        } else {
-            currentInput += digit;
-        }
-    }
+            function inputDigit(digit) {
+                if (currentInput === '0' || awaitingNextInput) {
+                    currentInput = digit;
+                    awaitingNextInput = false;
+                } else {
+                    currentInput += digit;
+                }
+            }
 
-    function inputDecimal() {
-        if (!currentInput.includes('.')) {
-            currentInput += '.';
-        }
-    }
+            function inputDecimal() {
+                if (!currentInput.includes('.')) {
+                    currentInput += '.';
+                }
+            }
 
-    function handleOperator(nextOperator) {
-        const inputValue = parseFloat(currentInput);
-        if (operator && awaitingNextInput) {
-            operator = nextOperator;
-            return;
-        }
-        if (firstOperand === null) {
-            firstOperand = inputValue;
-        } else if (operator) {
-            const result = performCalculation[operator](firstOperand, inputValue);
-            currentInput = String(result);
-            firstOperand = result;
-        }
-        operator = nextOperator;
-        awaitingNextInput = true;
-    }
+            function handleOperator(nextOperator) {
+                const inputValue = parseFloat(currentInput);
+                if (operator && awaitingNextInput) {
+                    operator = nextOperator;
+                    return;
+                }
+                if (firstOperand === null) {
+                    firstOperand = inputValue;
+                } else if (operator) {
+                    const result = performCalculation[operator](firstOperand, inputValue);
+                    currentInput = String(result);
+                    firstOperand = result;
+                }
+                operator = nextOperator;
+                awaitingNextInput = true;
+            }
 
-    const performCalculation = {
-        '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
-        '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
-        '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
-        '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
-    };
+            const performCalculation = {
+                '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+                '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+                '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+                '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+            };
 
-    function resetCalculator() {
-        currentInput = '0';
-        firstOperand = null;
-        operator = null;
-        awaitingNextInput = false;
-    }
+            function resetCalculator() {
+                currentInput = '0';
+                firstOperand = null;
+                operator = null;
+                awaitingNextInput = false;
+            }
 
-    keys.addEventListener('click', (event) => {
-        const { target } = event;
-        if (!target.matches('button')) {
-            return;
-        }
+            keys.addEventListener('click', (event) => {
+                const { target } = event;
+                if (!target.matches('button')) {
+                    return;
+                }
 
-        if (target.classList.contains('operator')) {
-            handleOperator(target.textContent);
-            display.value = currentInput;
-            return;
-        }
+                if (target.classList.contains('operator')) {
+                    handleOperator(target.textContent);
+                    display.value = currentInput;
+                    return;
+                }
 
-        switch (target.textContent) {
-            case '.':
-                inputDecimal();
-                break;
-            case 'C':
-                resetCalculator();
-                break;
-            case '=':
-                handleOperator(target.textContent);
+                switch (target.textContent) {
+                    case '.':
+                        inputDecimal();
+                        break;
+                    case 'C':
+                        resetCalculator();
+                        break;
+                    case '=':
+                        handleOperator(target.textContent);
+                        display.value = currentInput;
+                        break;
+                    default:
+                        inputDigit(target.textContent);
+                }
+
                 display.value = currentInput;
-                break;
-            default:
-                inputDigit(target.textContent);
-        }
-
-        display.value = currentInput;
-    });
-});
-</script>
+            });
+        });
+    </script>
 </body>
 </html>
