@@ -125,6 +125,9 @@
         .history h2 {
             margin-top: 0;
             font-size: 1.2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .history p {
@@ -132,6 +135,22 @@
             font-size: 0.9em;
             color: #333;
             word-wrap: break-word;
+        }
+
+        .clear-history-btn {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .clear-history-btn:hover {
+            background-color: #e53935;
+            transform: scale(1.05);
         }
 
         @media (max-width: 400px) {
@@ -181,7 +200,7 @@
             <button id="calculate">=</button>
         </div>
         <div class="history">
-            <h2>History</h2>
+            <h2>History <button class="clear-history-btn" id="clear-history">Clear History</button></h2>
             <div id="history"></div>
         </div>
     </div>
@@ -190,6 +209,7 @@
             const display = document.getElementById('display');
             const keys = document.querySelector('.keys');
             const historyDiv = document.getElementById('history');
+            const clearHistoryBtn = document.getElementById('clear-history');
             let currentInput = '0';
             let firstOperand = null;
             let operator = null;
@@ -251,6 +271,11 @@
                 awaitingNextInput = false;
             }
 
+            function clearHistory() {
+                history = [];
+                updateHistory();
+            }
+
             function updateHistory() {
                 historyDiv.innerHTML = history.map(entry => `<p>${entry}</p>`).join('');
             }
@@ -273,8 +298,6 @@
                         break;
                     case 'clear':
                         resetCalculator();
-                        history = [];
-                        updateHistory();
                         break;
                     case 'delete':
                         deleteLastDigit();
@@ -289,6 +312,8 @@
 
                 display.value = currentInput;
             });
+
+            clearHistoryBtn.addEventListener('click', clearHistory);
         });
     </script>
 </body>
