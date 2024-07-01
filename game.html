@@ -181,6 +181,7 @@
                 </button>
             </div>
         </div>
+        <audio id="clickSound" src="button-click.mp3"></audio>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -189,6 +190,7 @@
             const historyContainer = document.getElementById('history-container');
             const historyList = document.getElementById('history-list');
             const toggleHistoryBtn = document.getElementById('toggle-history');
+            const clickSound = document.getElementById('clickSound');
             let currentInput = '0';
             let firstOperand = null;
             let operator = null;
@@ -296,25 +298,60 @@
 
                 if (target.classList.contains('operator') || target.classList.contains('special') || target.classList.contains('memory')) {
                     handleOperator(target.textContent);
+                    playClickSound(); // Play sound for operator, special, and memory buttons
                 } else if (target.id === 'clear') {
                     currentInput = '0';
                     firstOperand = null;
                     operator = null;
                     awaitingNextInput = false;
+                    playClickSound(); // Play sound for clear button
                 } else if (target.id === 'delete') {
                     deleteLastDigit();
+                    playClickSound(); // Play sound for delete button
                 } else if (target.id === 'calculate') {
                     handleOperator(target.textContent);
+                    playClickSound(); // Play sound for calculate button
                 } else if (target.classList.contains('decimal')) {
                     inputDecimal();
+                    playClickSound(); // Play sound for decimal button
                 } else {
                     inputDigit(target.textContent);
+                    playClickSound(); // Play sound for digit buttons
                 }
 
                 display.value = currentInput;
             });
 
             toggleHistoryBtn.addEventListener('click', toggleHistory);
+
+            // Swipe gesture to toggle history sidebar
+            let touchStartX = 0;
+            let touchEndX = 0;
+            document.addEventListener('touchstart', (event) => {
+                touchStartX = event.touches[0].clientX;
+            });
+
+            document.addEventListener('touchend', (event) => {
+                touchEndX = event.changedTouches[0].clientX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const difference = touchStartX - touchEndX;
+                if (difference > 50) { // Swipe left
+                    historyContainer.classList.add('open');
+                    toggleHistoryBtn.innerHTML = '<span class="history-icon">-</span>';
+                } else if (difference < -50) { // Swipe right
+                    historyContainer.classList.remove('open');
+                    toggleHistoryBtn.innerHTML = '<span class="history-icon">+</span>';
+                }
+            }
+
+            // Function to play click sound
+            function playClickSound() {
+                clickSound.currentTime = 0;
+                clickSound.play();
+            }
 
             loadHistory();
         });
