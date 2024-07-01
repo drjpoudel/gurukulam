@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator</title>
+    <title>Advanced Calculator with History</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,11 +14,15 @@
             margin: 0;
             background: #f5f5f5;
         }
-        .calculator {
+        .calculator-container {
+            display: flex;
             background: #ffffff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .calculator {
+            margin-right: 20px;
         }
         #display {
             width: 100%;
@@ -63,53 +67,98 @@
             color: #fff;
             grid-column: span 2;
         }
+        .history {
+            max-width: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+        .history h2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .history h2 button {
+            background: #f44336;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .history h2 button:hover {
+            background: #e53935;
+        }
+        .history-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        .history-list li {
+            background: #f0f0f0;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" id="display" readonly>
-        <div class="keys">
-            <button class="operator">+</button>
-            <button class="operator">-</button>
-            <button class="operator">*</button>
-            <button class="operator">/</button>
-            <button class="special">√</button>
-            <button class="special">%</button>
-            <button class="special">sin</button>
-            <button class="special">cos</button>
-            <button class="special">tan</button>
-            <button class="special">log</button>
-            <button class="special">ln</button>
-            <button class="special">x!</button>
-            <button class="memory">M+</button>
-            <button class="memory">M-</button>
-            <button class="memory">MR</button>
-            <button class="memory">MC</button>
-            <button id="clear">C</button>
-            <button id="delete">⌫</button>
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>0</button>
-            <button class="decimal">.</button>
-            <button id="calculate">=</button>
+    <div class="calculator-container">
+        <div class="calculator">
+            <input type="text" id="display" readonly>
+            <div class="keys">
+                <button class="operator">+</button>
+                <button class="operator">-</button>
+                <button class="operator">*</button>
+                <button class="operator">/</button>
+                <button class="special">√</button>
+                <button class="special">%</button>
+                <button class="special">sin</button>
+                <button class="special">cos</button>
+                <button class="special">tan</button>
+                <button class="special">log</button>
+                <button class="special">ln</button>
+                <button class="special">x!</button>
+                <button class="memory">M+</button>
+                <button class="memory">M-</button>
+                <button class="memory">MR</button>
+                <button class="memory">MC</button>
+                <button id="clear">C</button>
+                <button id="delete">⌫</button>
+                <button>7</button>
+                <button>8</button>
+                <button>9</button>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>0</button>
+                <button class="decimal">.</button>
+                <button id="calculate">=</button>
+            </div>
+        </div>
+        <div class="history">
+            <h2>History <button id="clear-history">Clear</button></h2>
+            <ul class="history-list" id="history-list"></ul>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const display = document.getElementById('display');
             const keys = document.querySelector('.keys');
+            const historyList = document.getElementById('history-list');
+            const clearHistoryBtn = document.getElementById('clear-history');
             let currentInput = '0';
             let firstOperand = null;
             let operator = null;
             let awaitingNextInput = false;
             let memory = 0;
+            let history = [];
 
             function inputDigit(digit) {
                 if (awaitingNextInput) {
@@ -140,6 +189,7 @@
                     firstOperand = inputValue;
                 } else if (operator) {
                     const result = performCalculation[operator](firstOperand, inputValue);
+                    addHistory(`${firstOperand} ${operator} ${inputValue} = ${result}`);
                     currentInput = String(result);
                     firstOperand = result;
                 }
@@ -193,6 +243,29 @@
                 awaitingNextInput = false;
             }
 
+            function addHistory(entry) {
+                history.push(entry);
+                updateHistory();
+            }
+
+            function updateHistory() {
+                historyList.innerHTML = history.map(item => `<li>${item}</li>`).join('');
+                localStorage.setItem('history', JSON.stringify(history));
+            }
+
+            function clearHistory() {
+                history = [];
+                updateHistory();
+            }
+
+            function loadHistory() {
+                const savedHistory = localStorage.getItem('history');
+                if (savedHistory) {
+                    history = JSON.parse(savedHistory);
+                    updateHistory();
+                }
+            }
+
             keys.addEventListener('click', function(event) {
                 const { target } = event;
                 if (!target.matches('button')) {
@@ -222,6 +295,10 @@
 
                 display.value = currentInput;
             });
+
+            clearHistoryBtn.addEventListener('click', clearHistory);
+
+            loadHistory();
         });
     </script>
 </body>
