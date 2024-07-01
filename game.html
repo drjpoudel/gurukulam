@@ -175,8 +175,10 @@
                 </button>
             </div>
         </div>
+        <!-- Audio element for button click sound -->
         <audio id="clickSound" src="button-click.mp3"></audio>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const display = document.getElementById('display');
@@ -185,6 +187,7 @@
             const historyList = document.getElementById('history-list');
             const toggleHistoryBtn = document.getElementById('toggle-history');
             const clickSound = document.getElementById('clickSound');
+
             let currentInput = '0';
             let firstOperand = null;
             let operator = null;
@@ -251,25 +254,25 @@
                         result *= i;
                     }
                     return result;
-                },
+                }
             };
 
             function addToHistory(entry) {
                 historyData.push(entry);
-                localStorage.setItem('calculatorHistory', JSON.stringify(historyData));
                 updateHistory();
             }
 
             function loadHistory() {
-                const storedHistory = JSON.parse(localStorage.getItem('calculatorHistory'));
-                if (storedHistory) {
-                    historyData = storedHistory;
+                const history = localStorage.getItem('history');
+                if (history) {
+                    historyData = JSON.parse(history);
                     updateHistory();
                 }
             }
 
             function updateHistory() {
                 historyList.innerHTML = historyData.map(entry => `<li>${entry}</li>`).join('');
+                localStorage.setItem('history', JSON.stringify(historyData));
             }
 
             function clearCalculator() {
@@ -282,14 +285,15 @@
 
             function calculate() {
                 const inputValue = parseFloat(currentInput);
-                if (operator && firstOperand !== null) {
-                    const result = performCalculation[operator](firstOperand, inputValue);
-                    addToHistory(`${firstOperand} ${operator} ${inputValue} = ${result}`);
-                    currentInput = String(result);
-                    firstOperand = null;
-                    operator = null;
-                    awaitingNextInput = true;
+                if (firstOperand === null || operator === null) {
+                    return;
                 }
+                const result = performCalculation[operator](firstOperand, inputValue);
+                addToHistory(`${firstOperand} ${operator} ${inputValue} = ${result}`);
+                currentInput = String(result);
+                firstOperand = null;
+                operator = null;
+                awaitingNextInput = true;
                 display.value = currentInput;
             }
 
@@ -299,8 +303,6 @@
                     return;
                 }
 
-                clickSound.play(); // Play sound on button click
-
                 if (target.classList.contains('operator')) {
                     handleOperator(target.textContent);
                     display.value = currentInput;
@@ -308,13 +310,6 @@
                 }
 
                 switch (target.textContent) {
-                    case '+':
-                    case '-':
-                    case '*':
-                    case '/':
-                    case '=':
-                        calculate();
-                        break;
                     case 'C':
                         clearCalculator();
                         break;
@@ -322,34 +317,30 @@
                         deleteLastDigit();
                         display.value = currentInput;
                         break;
+                    case '=':
+                        calculate();
+                        break;
                     case '.':
                         inputDecimal();
-                        display.value = currentInput;
-                        break;
-                    case '00':
-                        inputDigit('00');
-                        display.value = currentInput;
                         break;
                     default:
-                        if (Number.isInteger(parseFloat(target.textContent))) {
+                        if (Number.isInteger(Number(target.textContent))) {
                             inputDigit(target.textContent);
                             display.value = currentInput;
                         }
                         break;
                 }
+
+                clickSound.play(); // Play click sound
             });
 
             toggleHistoryBtn.addEventListener('click', () => {
                 historyContainer.classList.toggle('open');
-                toggleHistoryBtn.classList.toggle('open');
+                toggleHistoryBtn.querySelector('.history-icon').textContent = historyContainer.classList.contains('open') ? '-' : '+';
             });
 
-            loadHistory();
+            loadHistory(); // Load history on page load
         });
-        document.addEventListener('DOMContentLoaded', function() {
-    // Your JavaScript code here
-});
-
     </script>
 </body>
 </html>
