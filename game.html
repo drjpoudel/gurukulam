@@ -3,111 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Creation Cost Estimator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e7f3fe;
-            border: 1px solid #b3d4fc;
-            border-radius: 5px;
-        }
-    </style>
+    <title>Advanced Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+<style>body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.calculator {
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-screen {
+    width: 100%;
+    height: 80px;
+    border: none;
+    background-color: #252525;
+    color: white;
+    text-align: right;
+    padding: 20px;
+    font-size: 2.5rem;
+}
+
+.calculator-keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+button {
+    height: 60px;
+    border-radius: 8px;
+    border: none;
+    background-color: #f4f4f4;
+    font-size: 1.5rem;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #e4e4e4;
+}
+
+button.operator {
+    background-color: #ff9500;
+    color: white;
+}
+
+button.equal-sign {
+    grid-column: span 4;
+}
+
+button.all-clear {
+    background-color: #ff3b30;
+    color: white;
+}
+
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>App Creation Cost Estimator</h1>
-        <div class="form-group">
-            <label for="complexity">App Complexity</label>
-            <select id="complexity">
-                <option value="simple">Simple</option>
-                <option value="medium">Medium</option>
-                <option value="complex">Complex</option>
-            </select>
+    <div class="calculator">
+        <input type="text" class="calculator-screen" value="" disabled />
+        <div class="calculator-keys">
+            <button class="operator" value="+">+</button>
+            <button class="operator" value="-">-</button>
+            <button class="operator" value="*">&times;</button>
+            <button class="operator" value="/">&divide;</button>
+
+            <button value="7">7</button>
+            <button value="8">8</button>
+            <button value="9">9</button>
+
+            <button value="4">4</button>
+            <button value="5">5</button>
+            <button value="6">6</button>
+
+            <button value="1">1</button>
+            <button value="2">2</button>
+            <button value="3">3</button>
+
+            <button value="0">0</button>
+            <button value=".">.</button>
+            <button class="all-clear" value="all-clear">AC</button>
+
+            <button class="operator" value="sqrt">√</button>
+            <button class="operator" value="square">x²</button>
+            <button class="operator" value="sin">sin</button>
+            <button class="operator" value="cos">cos</button>
+            <button class="operator" value="tan">tan</button>
+
+            <button class="equal-sign operator" value="=">=</button>
         </div>
-        <div class="form-group">
-            <label for="platform">Platform</label>
-            <select id="platform">
-                <option value="single">Single (iOS or Android)</option>
-                <option value="multiple">Multiple (iOS and Android)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="design">Design Complexity</label>
-            <select id="design">
-                <option value="basic">Basic</option>
-                <option value="custom">Custom</option>
-            </select>
-        </div>
-        <button onclick="estimateCost()">Estimate Cost</button>
-        <div class="result" id="result"></div>
     </div>
+    <script>const calculator = {
+    displayValue: '0',
+    firstOperand: null,
+    waitingForSecondOperand: false,
+    operator: null,
+};
 
-    <script>
-        function estimateCost() {
-            const complexity = document.getElementById('complexity').value;
-            const platform = document.getElementById('platform').value;
-            const design = document.getElementById('design').value;
+function inputDigit(digit) {
+    const { displayValue, waitingForSecondOperand } = calculator;
 
-            let cost = 0;
-            let time = 0;
+    if (waitingForSecondOperand === true) {
+        calculator.displayValue = digit;
+        calculator.waitingForSecondOperand = false;
+    } else {
+        calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+    }
+}
 
-            switch (complexity) {
-                case 'simple':
-                    cost += 10000;
-                    time += 3;
-                    break;
-                case 'medium':
-                    cost += 30000;
-                    time += 6;
-                    break;
-                case 'complex':
-                    cost += 80000;
-                    time += 9;
-                    break;
+function inputDecimal(dot) {
+    if (calculator.waitingForSecondOperand === true) return;
+
+    if (!calculator.displayValue.includes(dot)) {
+        calculator.displayValue += dot;
+    }
+}
+
+function handleOperator(nextOperator) {
+    const { firstOperand, displayValue, operator } = calculator;
+    const inputValue = parseFloat(displayValue);
+
+    if (operator && calculator.waitingForSecondOperand) {
+        calculator.operator = nextOperator;
+        return;
+    }
+
+    if (firstOperand == null) {
+        calculator.firstOperand = inputValue;
+    } else if (operator) {
+        const currentValue = firstOperand || 0;
+        const result = performCalculation[operator](currentValue, inputValue);
+
+        calculator.displayValue = String(result);
+        calculator.firstOperand = result;
+    }
+
+    calculator.waitingForSecondOperand = true;
+    calculator.operator = nextOperator;
+}
+
+const performCalculation = {
+    '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+    '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+    '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+    '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+    '=': (firstOperand, secondOperand) => secondOperand,
+    'sqrt': (firstOperand) => Math.sqrt(firstOperand),
+    'square': (firstOperand) => firstOperand * firstOperand,
+    'sin': (firstOperand) => Math.sin(firstOperand),
+    'cos': (firstOperand) => Math.cos(firstOperand),
+    'tan': (firstOperand) => Math.tan(firstOperand),
+};
+
+function resetCalculator() {
+    calculator.displayValue = '0';
+    calculator.firstOperand = null;
+    calculator.waitingForSecondOperand = false;
+    calculator.operator = null;
+}
+
+function updateDisplay() {
+    const display = document.querySelector('.calculator-screen');
+    display.value = calculator.displayValue;
+}
+
+updateDisplay();
+
+const keys = document.querySelector('.calculator-keys');
+keys.addEventListener('click', (event) => {
+    const { target } = event;
+    const { value } = target;
+    if (!target.matches('button')) {
+        return;
+    }
+
+    switch (value) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '=':
+        case 'sqrt':
+        case 'square':
+        case 'sin':
+        case 'cos':
+        case 'tan':
+            handleOperator(value);
+            break;
+        case '.':
+            inputDecimal(value);
+            break;
+        case 'all-clear':
+            resetCalculator();
+            break;
+        default:
+            if (Number.isInteger(parseFloat(value))) {
+                inputDigit(value);
             }
+    }
 
-            if (platform === 'multiple') {
-                cost *= 2;
-                time *= 1.5;
-            }
-
-            if (design === 'custom') {
-                cost += 5000;
-                time += 1;
-            }
-
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = `<p>Estimated Cost: $${cost.toLocaleString()}</p><p>Estimated Time: ${Math.ceil(time)} months</p>`;
-        }
-    </script>
+    updateDisplay();
+});
+</script>
 </body>
 </html>
