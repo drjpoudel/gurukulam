@@ -115,6 +115,9 @@
             word-wrap: break-word;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+        .clear-button {
+            margin-top: auto; /* Push to bottom */
+        }
         @media (max-width: 600px) {
             .keys {
                 grid-template-columns: repeat(3, 1fr); /* Adjust grid for very small screens */
@@ -146,8 +149,6 @@
                 <button class="memory">M-</button>
                 <button class="memory">MR</button>
                 <button class="memory">MC</button>
-                <button id="clear">C</button>
-                <button id="delete">⌫</button>
                 <button>7</button>
                 <button>8</button>
                 <button>9</button>
@@ -158,8 +159,11 @@
                 <button>2</button>
                 <button>3</button>
                 <button>0</button>
+                <button class="special">00</button>
                 <button class="decimal">.</button>
                 <button id="calculate">=</button>
+                <button id="clear">C</button>
+                <button id="delete">⌫</button>
             </div>
         </div>
         <div class="history-container" id="history-container">
@@ -247,7 +251,7 @@
                         result *= i;
                     }
                     return result;
-                }
+                },
             };
 
             function addToHistory(entry) {
@@ -320,6 +324,10 @@
                         break;
                     case '.':
                         inputDecimal();
+                        display.value = currentInput;
+                        break;
+                    case '00':
+                        inputDigit('00');
                         display.value = currentInput;
                         break;
                     default:
