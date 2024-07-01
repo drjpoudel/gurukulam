@@ -85,12 +85,14 @@
             background-color: #43a047;
         }
 
-        .calculator .keys #clear {
+        .calculator .keys #clear,
+        .calculator .keys #delete {
             background-color: #f44336;
             color: #fff;
         }
 
-        .calculator .keys #clear:hover {
+        .calculator .keys #clear:hover,
+        .calculator .keys #delete:hover {
             background-color: #e53935;
         }
 
@@ -116,7 +118,7 @@
             <button class="special">√</button>
             <button class="special">%</button>
             <button id="clear">C</button>
-            <button class="operator">/</button>
+            <button id="delete">⌫</button>
             <button>7</button>
             <button>8</button>
             <button>9</button>
@@ -153,6 +155,10 @@
                 if (!currentInput.includes('.')) {
                     currentInput += '.';
                 }
+            }
+
+            function deleteLastDigit() {
+                currentInput = currentInput.slice(0, -1) || '0';
             }
 
             function handleOperator(nextOperator) {
@@ -201,14 +207,17 @@
                     return;
                 }
 
-                switch (target.textContent) {
-                    case '.':
+                switch (target.id) {
+                    case 'decimal':
                         inputDecimal();
                         break;
-                    case 'C':
+                    case 'clear':
                         resetCalculator();
                         break;
-                    case '=':
+                    case 'delete':
+                        deleteLastDigit();
+                        break;
+                    case 'calculate':
                         handleOperator(target.textContent);
                         display.value = currentInput;
                         break;
