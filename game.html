@@ -184,164 +184,170 @@
         <audio id="clickSound" src="button-click.mp3"></audio>
     </div>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-    const display = document.getElementById('display');
-    const keys = document.querySelector('.keys');
-    const historyContainer = document.getElementById('history-container');
-    const historyList = document.getElementById('history-list');
-    const toggleHistoryBtn = document.getElementById('toggle-history');
-    let currentInput = '0';
-    let firstOperand = null;
-    let operator = null;
-    let awaitingNextInput = false;
-    let memory = 0;
-    let historyData = [];
+        document.addEventListener('DOMContentLoaded', function() {
+            const display = document.getElementById('display');
+            const keys = document.querySelector('.keys');
+            const historyContainer = document.getElementById('history-container');
+            const historyList = document.getElementById('history-list');
+            const toggleHistoryBtn = document.getElementById('toggle-history');
+            const clickSound = document.getElementById('clickSound');
+            let currentInput = '0';
+            let firstOperand = null;
+            let operator = null;
+            let awaitingNextInput = false;
+            let memory = 0;
+            let historyData = [];
 
-    // Audio element for button click sound
-    const clickSound = new Audio('button-click.mp3');
+            function inputDigit(digit) {
+                if (awaitingNextInput) {
+                    currentInput = digit;
+                    awaitingNextInput = false;
+                } else {
+                    currentInput = currentInput === '0' ? digit : currentInput + digit;
+                }
+            }
 
-    // Function to play click sound
-    function playClickSound() {
-        clickSound.currentTime = 0;
-        clickSound.play();
-    }
+            function inputDecimal() {
+                if (!currentInput.includes('.')) {
+                    currentInput += '.';
+                }
+            }
 
-    // Function to handle input digit
-    function inputDigit(digit) {
-        if (awaitingNextInput) {
-            currentInput = digit;
-            awaitingNextInput = false;
-        } else {
-            currentInput = currentInput === '0' ? digit : currentInput + digit;
-        }
-    }
+            function deleteLastDigit() {
+                currentInput = currentInput.slice(0, -1) || '0';
+            }
 
-    // Function to handle operator
-    function handleOperator(nextOperator) {
-        const inputValue = parseFloat(currentInput);
-        if (operator && awaitingNextInput) {
-            operator = nextOperator;
-            return;
-        }
-        if (firstOperand === null) {
-            firstOperand = inputValue;
-        } else if (operator) {
-            const result = performCalculation[operator](firstOperand, inputValue);
-            addToHistory(`${firstOperand} ${operator} ${inputValue} = ${result}`);
-            currentInput = String(result);
-            firstOperand = result;
-        }
-        operator = nextOperator;
-        awaitingNextInput = true;
-    }
+            function handleOperator(nextOperator) {
+                const inputValue = parseFloat(currentInput);
+                if (operator && awaitingNextInput) {
+                    operator = nextOperator;
+                    return;
+                }
+                if (firstOperand === null) {
+                    firstOperand = inputValue;
+                } else if (operator) {
+                    const result = performCalculation[operator](firstOperand, inputValue);
+                    addToHistory(`${firstOperand} ${operator} ${inputValue} = ${result}`);
+                    currentInput = String(result);
+                    firstOperand = result;
+                }
+                operator = nextOperator;
+                awaitingNextInput = true;
+            }
 
-    // Function to handle decimal point
-    function inputDecimal() {
-        if (!currentInput.includes('.')) {
-            currentInput += '.';
-        }
-    }
+            const performCalculation = {
+                '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+                '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+                '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+                '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+                '√': (firstOperand) => Math.sqrt(firstOperand),
+                '%': (firstOperand, secondOperand) => (firstOperand * secondOperand) / 100,
+                '=': (firstOperand, secondOperand) => secondOperand,
+                'sin': (firstOperand) => Math.sin(firstOperand),
+                'cos': (firstOperand) => Math.cos(firstOperand),
+                'tan': (firstOperand) => Math.tan(firstOperand),
+                'log': (firstOperand) => Math.log10(firstOperand),
+                'ln': (firstOperand) => Math.log(firstOperand),
+                'x!': (num) => {
+                    if (num === 0 || num === 1) {
+                        return 1;
+                    }
+                    let result = 1;
+                    for (let i = 2; i <= num; i++) {
+                        result *= i;
+                    }
+                    return result;
+                }
+            };
 
-    // Function to delete last digit
-    function deleteLastDigit() {
-        currentInput = currentInput.slice(0, -1) || '0';
-    }
+            function addToHistory(entry) {
+                historyData.push(entry);
+                localStorage.setItem('calculatorHistory', JSON.stringify(historyData));
+                updateHistory();
+            }
 
-    // Function to add to history
-    function addToHistory(entry) {
-        historyData.push(entry);
-        localStorage.setItem('calculatorHistory', JSON.stringify(historyData));
-        updateHistory();
-    }
+            function loadHistory() {
+                const storedHistory = JSON.parse(localStorage.getItem('calculatorHistory'));
+                if (storedHistory) {
+                    historyData = storedHistory;
+                    updateHistory();
+                }
+            }
 
-    // Function to load history from localStorage
-    function loadHistory() {
-        const storedHistory = JSON.parse(localStorage.getItem('calculatorHistory'));
-        if (storedHistory) {
-            historyData = storedHistory;
-            updateHistory();
-        }
-    }
+            function updateHistory() {
+                historyList.innerHTML = historyData.map(entry => `<li>${entry}</li>`).join('');
+            }
 
-    // Function to update history list
-    function updateHistory() {
-        historyList.innerHTML = historyData.map(entry => `<li>${entry}</li>`).join('');
-    }
+            function clearCalculator() {
+                currentInput = '0';
+                firstOperand = null;
+                operator = null;
+                awaitingNextInput = false;
+                display.value = currentInput;
+            }
 
-    // Function to clear history
-    function clearHistory() {
-        historyData = [];
-        localStorage.removeItem('calculatorHistory');
-        updateHistory();
-    }
+            function calculate() {
+                const inputValue = parseFloat(currentInput);
+                if (operator && firstOperand !== null) {
+                    const result = performCalculation[operator](firstOperand, inputValue);
+                    addToHistory(`${firstOperand} ${operator} ${inputValue} = ${result}`);
+                    currentInput = String(result);
+                    firstOperand = null;
+                    operator = null;
+                    awaitingNextInput = true;
+                }
+                display.value = currentInput;
+            }
 
-    // Function to toggle history sidebar
-    function toggleHistory() {
-        historyContainer.classList.toggle('open');
-        const isOpen = historyContainer.classList.contains('open');
-        toggleHistoryBtn.innerHTML = isOpen ? '<span class="history-icon">-</span>' : '<span class="history-icon">+</span>';
-    }
+            keys.addEventListener('click', (event) => {
+                const { target } = event;
+                if (!target.matches('button')) {
+                    return;
+                }
 
-    // Event listener for calculator keys
-    keys.addEventListener('click', (event) => {
-        const { target } = event;
-        if (!target.matches('button')) {
-            return;
-        }
+                clickSound.play(); // Play sound on button click
 
-        if (target.classList.contains('operator') || target.classList.contains('special') || target.classList.contains('memory')) {
-            handleOperator(target.textContent);
-        } else if (target.id === 'clear') {
-            currentInput = '0';
-            firstOperand = null;
-            operator = null;
-            awaitingNextInput = false;
-        } else if (target.id === 'delete') {
-            deleteLastDigit();
-        } else if (target.id === 'calculate') {
-            handleOperator(target.textContent);
-        } else if (target.classList.contains('decimal')) {
-            inputDecimal();
-        } else {
-            inputDigit(target.textContent);
-        }
+                if (target.classList.contains('operator')) {
+                    handleOperator(target.textContent);
+                    display.value = currentInput;
+                    return;
+                }
 
-        // Update display and play click sound
-        display.value = currentInput;
-        playClickSound();
-    });
+                switch (target.textContent) {
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '=':
+                        calculate();
+                        break;
+                    case 'C':
+                        clearCalculator();
+                        break;
+                    case '⌫':
+                        deleteLastDigit();
+                        display.value = currentInput;
+                        break;
+                    case '.':
+                        inputDecimal();
+                        display.value = currentInput;
+                        break;
+                    default:
+                        if (Number.isInteger(parseFloat(target.textContent))) {
+                            inputDigit(target.textContent);
+                            display.value = currentInput;
+                        }
+                        break;
+                }
+            });
 
-    // Event listener for history toggle button
-    toggleHistoryBtn.addEventListener('click', toggleHistory);
+            toggleHistoryBtn.addEventListener('click', () => {
+                historyContainer.classList.toggle('open');
+                toggleHistoryBtn.classList.toggle('open');
+            });
 
-    // Swipe gesture to toggle history sidebar
-    let touchStartX = 0;
-    let touchEndX = 0;
-    document.addEventListener('touchstart', (event) => {
-        touchStartX = event.touches[0].clientX;
-    });
-
-    document.addEventListener('touchend', (event) => {
-        touchEndX = event.changedTouches[0].clientX;
-        handleSwipe();
-    });
-
-    // Function to handle swipe gesture
-    function handleSwipe() {
-        const difference = touchStartX - touchEndX;
-        if (difference > 50) { // Swipe left
-            historyContainer.classList.add('open');
-            toggleHistoryBtn.innerHTML = '<span class="history-icon">-</span>';
-        } else if (difference < -50) { // Swipe right
-            historyContainer.classList.remove('open');
-            toggleHistoryBtn.innerHTML = '<span class="history-icon">+</span>';
-        }
-    }
-
-    // Load history from localStorage on page load
-    loadHistory();
-});
-
+            loadHistory();
+        });
     </script>
 </body>
 </html>
