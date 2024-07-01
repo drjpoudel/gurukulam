@@ -5,265 +5,178 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Calculator</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-
-        .calculator {
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .calculator-screen {
-            width: 100%;
-            height: auto;
-            max-height: 80px;
-            border: none;
-            background-color: #252525;
-            color: white;
-            text-align: right;
-            padding: 20px;
-            font-size: 2.5rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            word-wrap: break-word;
-            white-space: nowrap;
-        }
-
-        .calculator-keys {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-gap: 10px;
-            padding: 20px;
-            background-color: #ffffff;
-        }
-
-        button {
-            height: 60px;
-            border-radius: 8px;
-            border: none;
-            background-color: #f4f4f4;
-            font-size: 1.5rem;
-            transition: background-color 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer; /* Added cursor pointer */
-        }
-
-        button:hover {
-            background-color: #e4e4e4;
-        }
-
-        button.operator {
-            background-color: #ff9500;
-            color: white;
-        }
-
-        button.equal-sign {
-            grid-column: span 4;
-        }
-
-        button.all-clear {
-            background-color: #ff3b30;
-            color: white;
-        }
-
-        @media (max-width: 400px) {
-            .calculator-screen {
-                font-size: 2rem;
-                padding: 10px;
-            }
-
-            button {
-                height: 50px;
-                font-size: 1.2rem;
-            }
-
-            .calculator-keys {
-                grid-gap: 5px;
-                padding: 10px;
-            }
-        }
-        .calculator {
-    border: 2px solid #ccc; /* Example border styling */
-    border-radius: 8px;
-    overflow: hidden;
+<style>
+body {
+    font-family: Arial, sans-serif;
     display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
 }
 
-    </style>
+.calculator {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+}
+
+.calculator #display {
+    width: 100%;
+    padding: 10px;
+    font-size: 2em;
+    text-align: right;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.calculator .keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.calculator .keys button {
+    padding: 15px;
+    font-size: 1.2em;
+    background-color: #e0e0e0;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.calculator .keys button:hover {
+    background-color: #d1d1d1;
+}
+
+.calculator .keys .operator {
+    background-color: #ff9800;
+    color: #fff;
+}
+
+.calculator .keys .operator:hover {
+    background-color: #e69500;
+}
+
+.calculator .keys .decimal {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+</style>
 </head>
 <body>
     <div class="calculator">
-        <input type="text" class="calculator-screen" value="" disabled />
-        <div class="calculator-keys">
-            <button class="operator" value="+">+</button>
-            <button class="operator" value="-">-</button>
-            <button class="operator" value="*">&times;</button>
-            <button class="operator" value="/">&divide;</button>
-
-            <button value="7">7</button>
-            <button value="8">8</button>
-            <button value="9">9</button>
-
-            <button value="4">4</button>
-            <button value="5">5</button>
-            <button value="6">6</button>
-
-            <button value="1">1</button>
-            <button value="2">2</button>
-            <button value="3">3</button>
-
-            <button value="0">0</button>
-            <button value=".">.</button>
-            <button class="all-clear" value="all-clear">AC</button>
-
-            <button class="operator" value="sqrt">√</button>
-            <button class="operator" value="square">x²</button>
-            <button class="operator" value="sin">sin</button>
-            <button class="operator" value="cos">cos</button>
-            <button class="operator" value="tan">tan</button>
-
-            <button class="equal-sign operator" value="=">=</button>
+        <input type="text" id="display" readonly>
+        <div class="keys">
+            <button class="operator">+</button>
+            <button class="operator">-</button>
+            <button class="operator">*</button>
+            <button class="operator">/</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>0</button>
+            <button class="decimal">.</button>
+            <button id="clear">C</button>
+            <button id="calculate">=</button>
         </div>
     </div>
-    <script>
-        const calculator = {
-            displayValue: '0',
-            firstOperand: null,
-            waitingForSecondOperand: false,
-            operator: null,
-        };
+    <script">
+    document.addEventListener('DOMContentLoaded', function() {
+    const display = document.getElementById('display');
+    const keys = document.querySelector('.keys');
+    let currentInput = '0';
+    let firstOperand = null;
+    let operator = null;
+    let awaitingNextInput = false;
 
-        function inputDigit(digit) {
-            const { displayValue, waitingForSecondOperand } = calculator;
+    function inputDigit(digit) {
+        if (currentInput === '0' || awaitingNextInput) {
+            currentInput = digit;
+            awaitingNextInput = false;
+        } else {
+            currentInput += digit;
+        }
+    }
 
-            if (waitingForSecondOperand === true) {
-                calculator.displayValue = digit;
-                calculator.waitingForSecondOperand = false;
-            } else {
-                calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
-            }
+    function inputDecimal() {
+        if (!currentInput.includes('.')) {
+            currentInput += '.';
+        }
+    }
+
+    function handleOperator(nextOperator) {
+        const inputValue = parseFloat(currentInput);
+        if (operator && awaitingNextInput) {
+            operator = nextOperator;
+            return;
+        }
+        if (firstOperand === null) {
+            firstOperand = inputValue;
+        } else if (operator) {
+            const result = performCalculation[operator](firstOperand, inputValue);
+            currentInput = String(result);
+            firstOperand = result;
+        }
+        operator = nextOperator;
+        awaitingNextInput = true;
+    }
+
+    const performCalculation = {
+        '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+        '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+        '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+        '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+    };
+
+    function resetCalculator() {
+        currentInput = '0';
+        firstOperand = null;
+        operator = null;
+        awaitingNextInput = false;
+    }
+
+    keys.addEventListener('click', (event) => {
+        const { target } = event;
+        if (!target.matches('button')) {
+            return;
         }
 
-        function inputDecimal(dot) {
-            if (calculator.waitingForSecondOperand === true) return;
-
-            if (!calculator.displayValue.includes(dot)) {
-                calculator.displayValue += dot;
-            }
+        if (target.classList.contains('operator')) {
+            handleOperator(target.textContent);
+            display.value = currentInput;
+            return;
         }
 
-        function handleOperator(nextOperator) {
-            const { firstOperand, displayValue, operator } = calculator;
-            const inputValue = parseFloat(displayValue);
-
-            if (operator && calculator.waitingForSecondOperand) {
-                calculator.operator = nextOperator;
-                return;
-            }
-
-            if (firstOperand == null) {
-                calculator.firstOperand = inputValue;
-            } else if (operator) {
-                const currentValue = firstOperand || 0;
-                const result = performCalculation[operator](currentValue, inputValue);
-
-                calculator.displayValue = String(result);
-                calculator.firstOperand = result;
-            }
-
-            calculator.waitingForSecondOperand = true;
-            calculator.operator = nextOperator;
+        switch (target.textContent) {
+            case '.':
+                inputDecimal();
+                break;
+            case 'C':
+                resetCalculator();
+                break;
+            case '=':
+                handleOperator(target.textContent);
+                display.value = currentInput;
+                break;
+            default:
+                inputDigit(target.textContent);
         }
 
-        const performCalculation = {
-            '/': (firstOperand, secondOperand) => secondOperand === 0 ? 'Error' : firstOperand / secondOperand,
-            '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
-            '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
-            '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
-            '=': (firstOperand, secondOperand) => secondOperand,
-            'sqrt': (firstOperand) => Math.sqrt(firstOperand),
-            'square': (firstOperand) => firstOperand * firstOperand,
-            'sin': (firstOperand) => Math.sin(firstOperand),
-            'cos': (firstOperand) => Math.cos(firstOperand),
-            'tan': (firstOperand) => Math.tan(firstOperand),
-        };
-
-        function resetCalculator() {
-            calculator.displayValue = '0';
-            calculator.firstOperand = null;
-            calculator.waitingForSecondOperand = false;
-            calculator.operator = null;
-        }
-
-        function updateDisplay() {
-            const display = document.querySelector('.calculator-screen');
-            display.value = calculator.displayValue;
-        }
-
-        updateDisplay();
-
-        const keys = document.querySelector('.calculator-keys');
-        keys.addEventListener('click', (event) => {
-            const { target } = event;
-            const { value } = target;
-            if (!target.matches('button')) {
-                return;
-            }
-
-            // Add a class to show click effect
-            target.classList.add('clicked');
-
-            switch (value) {
-                case '+':
-                case '-':
-                case '*':
-                case '/':
-                case '=':
-                case 'sqrt':
-                case 'square':
-                case 'sin':
-                case 'cos':
-                case 'tan':
-                    handleOperator(value);
-                    break;
-                case '.':
-                    inputDecimal(value);
-                    break;
-                case 'all-clear':
-                    resetCalculator();
-                    break;
-                default:
-                    if (Number.isInteger(parseFloat(value))) {
-                        inputDigit(value);
-                    }
-            }
-
-            updateDisplay();
-
-            // Remove the click effect after 200ms
-            setTimeout(() => {
-                target.classList.remove('clicked');
-            }, 200);
-        });
-    </script>
+        display.value = currentInput;
+    });
+});
+</script>
 </body>
 </html>
