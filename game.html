@@ -199,39 +199,25 @@
                     return;
                 }
 
-                switch (target.textContent) {
-                    case '.':
+                switch (target.id) {
+                    case 'decimal':
                         inputDecimal();
                         break;
-                    case 'C':
+                    case 'clear':
                         resetCalculator();
                         break;
-                    case '⌫':
+                    case 'delete':
                         deleteLastDigit();
                         break;
-                    case '=':
+                    case 'calculate':
                         handleOperator('=');
                         break;
-                    case '+':
-                    case '-':
-                    case '*':
-                    case '/':
-                    case '√':
-                    case '%':
-                    case 'sin':
-                    case 'cos':
-                    case 'tan':
-                    case 'log':
-                    case 'ln':
-                    case 'x!':
-                    case 'M+':
-                    case 'M-':
-                    case 'MR':
-                    case 'MC':
-                        handleOperator(target.textContent);
-                        break;
                     default:
-                        inputDigit(target.textContent);
+                        if (target.classList.contains('operator') || target.classList.contains('special') || target.classList.contains('memory')) {
+                            handleOperator(target.textContent);
+                        } else {
+                            inputDigit(target.textContent);
+                        }
                 }
 
                 display.value = currentInput;
