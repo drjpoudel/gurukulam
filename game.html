@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator</title>
+    <title>Advanced Calculator with History</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
@@ -105,6 +105,26 @@
         .calculator .keys #calculate:hover {
             background-color: #1e88e5;
         }
+
+        .history {
+            margin-top: 20px;
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .history h2 {
+            margin-top: 0;
+        }
+
+        .history p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -132,15 +152,21 @@
             <button class="decimal">.</button>
             <button id="calculate">=</button>
         </div>
+        <div class="history">
+            <h2>History</h2>
+            <div id="history"></div>
+        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const display = document.getElementById('display');
             const keys = document.querySelector('.keys');
+            const historyDiv = document.getElementById('history');
             let currentInput = '0';
             let firstOperand = null;
             let operator = null;
             let awaitingNextInput = false;
+            let history = [];
 
             function inputDigit(digit) {
                 if (currentInput === '0' || awaitingNextInput) {
@@ -171,6 +197,8 @@
                     firstOperand = inputValue;
                 } else if (operator) {
                     const result = performCalculation[operator](firstOperand, inputValue);
+                    history.push(`${firstOperand} ${operator} ${inputValue} = ${result}`);
+                    updateHistory();
                     currentInput = String(result);
                     firstOperand = result;
                 }
@@ -195,6 +223,10 @@
                 awaitingNextInput = false;
             }
 
+            function updateHistory() {
+                historyDiv.innerHTML = history.map(entry => `<p>${entry}</p>`).join('');
+            }
+
             keys.addEventListener('click', (event) => {
                 const { target } = event;
                 if (!target.matches('button')) {
@@ -213,6 +245,8 @@
                         break;
                     case 'clear':
                         resetCalculator();
+                        history = [];
+                        updateHistory();
                         break;
                     case 'delete':
                         deleteLastDigit();
