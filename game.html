@@ -75,39 +75,50 @@
             color: #fff;
             grid-column: span 2;
         }
-        .history {
+        .history-container {
             position: absolute;
             top: 0;
-            left: -300px; /* Initially off-screen */
+            right: -320px; /* Initially off-screen */
             width: 300px; /* Sidebar width */
             height: 100%;
             background: #f0f0f0;
-            border-radius: 0 10px 10px 0;
-            transition: left 0.3s ease; /* Smooth transition */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px 0 0 10px;
+            transition: right 0.3s ease; /* Smooth transition */
+            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
             overflow-y: auto;
             padding: 20px;
+            z-index: 1000;
         }
-        .history.open {
-            left: 0; /* Slide in when open */
+        .history-container.open {
+            right: 0; /* Slide in when open */
         }
-        .history h2 {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .history h2 button {
-            background: #f44336;
+        .history {
+            display: none; /* Initially hidden on small screens */
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #2196f3;
             color: #fff;
             border: none;
-            padding: 5px 10px;
+            padding: 10px;
+            border-radius: 50%;
             cursor: pointer;
-            border-radius: 5px;
-            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
         }
-        .history h2 button:hover {
-            background: #e53935;
+        .history.open {
+            display: block; /* Show on small screens */
+        }
+        .history-icon {
+            font-size: 1.2em;
+        }
+        .history-content {
+            margin-top: 10px;
+        }
+        .history h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.2em;
         }
         .history-list {
             list-style: none;
@@ -121,23 +132,6 @@
             border-radius: 5px;
             word-wrap: break-word;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .toggle-sidebar-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #2196f3;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none; /* Initially hidden on large screens */
-        }
-        .toggle-sidebar-btn.show {
-            display: block; /* Show on small screens */
         }
     </style>
 </head>
@@ -178,20 +172,23 @@
                 <button id="calculate">=</button>
             </div>
         </div>
-        <div class="history" id="history">
-            <h2>History <button id="clear-history">Clear</button></h2>
+        <div class="history-container" id="history-container">
+            <h2>History</h2>
             <ul class="history-list" id="history-list"></ul>
+            <div class="history-content">
+                <button class="history" id="toggle-history">
+                    <span class="history-icon">-</span>
+                </button>
+            </div>
         </div>
     </div>
-    <button class="toggle-sidebar-btn" id="toggle-sidebar-btn">Toggle History</button>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const display = document.getElementById('display');
             const keys = document.querySelector('.keys');
-            const history = document.getElementById('history');
+            const historyContainer = document.getElementById('history-container');
             const historyList = document.getElementById('history-list');
-            const clearHistoryBtn = document.getElementById('clear-history');
-            const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
+            const toggleHistoryBtn = document.getElementById('toggle-history');
             let currentInput = '0';
             let firstOperand = null;
             let operator = null;
@@ -285,8 +282,10 @@
                 updateHistory();
             }
 
-            function toggleSidebar() {
-                history.classList.toggle('open');
+            function toggleHistory() {
+                historyContainer.classList.toggle('open');
+                const isOpen = historyContainer.classList.contains('open');
+                toggleHistoryBtn.innerHTML = isOpen ? '<span class="history-icon">-</span>' : '<span class="history-icon">+</span>';
             }
 
             keys.addEventListener('click', (event) => {
@@ -315,8 +314,7 @@
                 display.value = currentInput;
             });
 
-            clearHistoryBtn.addEventListener('click', clearHistory);
-            toggleSidebarBtn.addEventListener('click', toggleSidebar);
+            toggleHistoryBtn.addEventListener('click', toggleHistory);
 
             loadHistory();
         });
