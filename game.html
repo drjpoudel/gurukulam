@@ -91,7 +91,6 @@ button.all-clear {
         padding: 10px;
     }
 }
-
 </style>
 </head>
 <body>
@@ -179,7 +178,7 @@ function handleOperator(nextOperator) {
 }
 
 const performCalculation = {
-    '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
+    '/': (firstOperand, secondOperand) => secondOperand === 0 ? 'Error' : firstOperand / secondOperand,
     '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
     '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
     '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
@@ -240,7 +239,6 @@ keys.addEventListener('click', (event) => {
 
     updateDisplay();
 });
-
 </script>
 </body>
 </html>
