@@ -44,7 +44,7 @@
 
         .calculator .keys {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 10px;
         }
 
@@ -169,7 +169,7 @@
             }
 
             .calculator .keys #calculate {
-                grid-column: span 4;
+                grid-column: span 5;
             }
         }
     </style>
@@ -184,6 +184,16 @@
             <button class="operator">/</button>
             <button class="special">√</button>
             <button class="special">%</button>
+            <button class="special">sin</button>
+            <button class="special">cos</button>
+            <button class="special">tan</button>
+            <button class="special">log</button>
+            <button class="special">ln</button>
+            <button class="special">x!</button>
+            <button class="special">M+</button>
+            <button class="special">M-</button>
+            <button class="special">MR</button>
+            <button class="special">MC</button>
             <button id="clear">C</button>
             <button id="delete">⌫</button>
             <button>7</button>
@@ -214,6 +224,7 @@
             let firstOperand = null;
             let operator = null;
             let awaitingNextInput = false;
+            let memory = 0;
             let history = [];
 
             function inputDigit(digit) {
@@ -262,8 +273,37 @@
                 '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
                 '√': (firstOperand) => Math.sqrt(firstOperand),
                 '%': (firstOperand, secondOperand) => (firstOperand * secondOperand) / 100,
-                '=': (firstOperand, secondOperand) => secondOperand
+                '=': (firstOperand, secondOperand) => secondOperand,
+                'sin': (firstOperand) => Math.sin(firstOperand),
+                'cos': (firstOperand) => Math.cos(firstOperand),
+                'tan': (firstOperand) => Math.tan(firstOperand),
+                'log': (firstOperand) => Math.log10(firstOperand),
+                'ln': (firstOperand) => Math.log(firstOperand),
+                'x!': (firstOperand) => factorial(firstOperand),
+                'M+': () => {
+                    memory += parseFloat(currentInput);
+                    return memory;
+                },
+                'M-': () => {
+                    memory -= parseFloat(currentInput);
+                    return memory;
+                },
+                'MR': () => memory,
+                'MC': () => {
+                    memory = 0;
+                    return memory;
+                }
             };
+
+            function factorial(n) {
+                if (n < 0) return NaN;
+                if (n === 0) return 1;
+                let result = 1;
+                for (let i = n; i > 1; i--) {
+                    result *= i;
+                }
+                return result;
+            }
 
             function resetCalculator() {
                 currentInput = '0';
@@ -272,24 +312,29 @@
                 awaitingNextInput = false;
             }
 
+            function updateHistory() {
+                historyDiv.innerHTML = '';
+                history.forEach(entry => {
+                    const p = document.createElement('p');
+                    p.textContent = entry;
+                    historyDiv.appendChild(p);
+                });
+            }
+
             function clearHistory() {
                 history = [];
                 updateHistory();
                 saveHistoryToCookies();
             }
 
-            function updateHistory() {
-                historyDiv.innerHTML = history.map(entry => `<p>${entry}</p>`).join('');
-            }
-
             function saveHistoryToCookies() {
-                document.cookie = `calculatorHistory=${JSON.stringify(history)}; path=/; max-age=31536000`;
+                document.cookie = 'calculatorHistory=' + encodeURIComponent(JSON.stringify(history));
             }
 
             function loadHistoryFromCookies() {
-                const cookieString = document.cookie.split('; ').find(row => row.startsWith('calculatorHistory='));
-                if (cookieString) {
-                    history = JSON.parse(cookieString.split('=')[1]);
+                const cookie = document.cookie.split('; ').find(row => row.startsWith('calculatorHistory='));
+                if (cookie) {
+                    history = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
                     updateHistory();
                 }
             }
@@ -321,6 +366,16 @@
                     case '/':
                     case '√':
                     case '%':
+                    case 'sin':
+                    case 'cos':
+                    case 'tan':
+                    case 'log':
+                    case 'ln':
+                    case 'x!':
+                    case 'M+':
+                    case 'M-':
+                    case 'MR':
+                    case 'MC':
                         handleOperator(target.textContent);
                         break;
                     default:
