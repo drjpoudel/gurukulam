@@ -137,14 +137,14 @@
                 <button class="operator">-</button>
                 <button class="operator">*</button>
                 <button class="operator">/</button>
-                <button class="special">√</button>
-                <button class="special">%</button>
-                <button class="special">sin</button>
-                <button class="special">cos</button>
-                <button class="special">tan</button>
-                <button class="special">log</button>
-                <button class="special">ln</button>
-                <button class="special">x!</button>
+                <button class="special" data-function="sqrt">√</button>
+                <button class="special" data-function="percent">%</button>
+                <button class="special" data-function="sin">sin</button>
+                <button class="special" data-function="cos">cos</button>
+                <button class="special" data-function="tan">tan</button>
+                <button class="special" data-function="log">log</button>
+                <button class="special" data-function="ln">ln</button>
+                <button class="special" data-function="factorial">x!</button>
                 <button class="memory">M+</button>
                 <button class="memory">M-</button>
                 <button class="memory">MR</button>
@@ -234,7 +234,7 @@
                 '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
                 '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
                 '/': (firstOperand, secondOperand) => firstOperand / secondOperand,
-                '√': (firstOperand) => Math.sqrt(firstOperand),
+                'sqrt': (firstOperand) => Math.sqrt(firstOperand),
                 '%': (firstOperand, secondOperand) => (firstOperand * secondOperand) / 100,
                 '=': (firstOperand, secondOperand) => secondOperand,
                 'sin': (firstOperand) => Math.sin(firstOperand),
@@ -242,12 +242,9 @@
                 'tan': (firstOperand) => Math.tan(firstOperand),
                 'log': (firstOperand) => Math.log10(firstOperand),
                 'ln': (firstOperand) => Math.log(firstOperand),
-                'x!': (num) => {
-                    if (num === 0 || num === 1) {
-                        return 1;
-                    }
+                'factorial': (firstOperand) => {
                     let result = 1;
-                    for (let i = 2; i <= num; i++) {
+                    for (let i = 2; i <= firstOperand; i++) {
                         result *= i;
                     }
                     return result;
@@ -306,6 +303,15 @@
                     return;
                 }
 
+                if (target.classList.contains('special')) {
+                    const functionName = target.dataset.function;
+                    const result = performCalculation[functionName](parseFloat(currentInput));
+                    addToHistory(`${functionName}(${currentInput}) = ${result}`);
+                    currentInput = String(result);
+                    display.value = currentInput;
+                    return;
+                }
+
                 switch (target.textContent) {
                     case 'C':
                         clearCalculator();
@@ -319,6 +325,19 @@
                         break;
                     case '.':
                         inputDecimal();
+                        break;
+                    case 'M+':
+                        memory += parseFloat(currentInput);
+                        break;
+                    case 'M-':
+                        memory -= parseFloat(currentInput);
+                        break;
+                    case 'MR':
+                        currentInput = String(memory);
+                        display.value = currentInput;
+                        break;
+                    case 'MC':
+                        memory = 0;
                         break;
                     default:
                         if (Number.isInteger(Number(target.textContent))) {
