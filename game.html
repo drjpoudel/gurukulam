@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Creation Cost Estimator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f3fe;
+            border: 1px solid #b3d4fc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>App Creation Cost Estimator</h1>
+        <div class="form-group">
+            <label for="complexity">App Complexity</label>
+            <select id="complexity">
+                <option value="simple">Simple</option>
+                <option value="medium">Medium</option>
+                <option value="complex">Complex</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="platform">Platform</label>
+            <select id="platform">
+                <option value="single">Single (iOS or Android)</option>
+                <option value="multiple">Multiple (iOS and Android)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="design">Design Complexity</label>
+            <select id="design">
+                <option value="basic">Basic</option>
+                <option value="custom">Custom</option>
+            </select>
+        </div>
+        <button onclick="estimateCost()">Estimate Cost</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function estimateCost() {
+            const complexity = document.getElementById('complexity').value;
+            const platform = document.getElementById('platform').value;
+            const design = document.getElementById('design').value;
+
+            let cost = 0;
+            let time = 0;
+
+            switch (complexity) {
+                case 'simple':
+                    cost += 10000;
+                    time += 3;
+                    break;
+                case 'medium':
+                    cost += 30000;
+                    time += 6;
+                    break;
+                case 'complex':
+                    cost += 80000;
+                    time += 9;
+                    break;
+            }
+
+            if (platform === 'multiple') {
+                cost *= 2;
+                time *= 1.5;
+            }
+
+            if (design === 'custom') {
+                cost += 5000;
+                time += 1;
+            }
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<p>Estimated Cost: $${cost.toLocaleString()}</p><p>Estimated Time: ${Math.ceil(time)} months</p>`;
+        }
+    </script>
+</body>
+</html>
