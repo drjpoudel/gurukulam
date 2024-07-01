@@ -217,11 +217,11 @@
             let history = [];
 
             function inputDigit(digit) {
-                if (currentInput === '0' || awaitingNextInput) {
+                if (awaitingNextInput) {
                     currentInput = digit;
                     awaitingNextInput = false;
                 } else {
-                    currentInput += digit;
+                    currentInput = currentInput === '0' ? digit : currentInput + digit;
                 }
             }
 
@@ -303,8 +303,7 @@
                         deleteLastDigit();
                         break;
                     case 'calculate':
-                        handleOperator(target.textContent);
-                        display.value = currentInput;
+                        handleOperator('=');
                         break;
                     default:
                         inputDigit(target.textContent);
