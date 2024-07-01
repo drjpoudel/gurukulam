@@ -5,7 +5,256 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Calculator</title>
     <link rel="stylesheet" href="styles.css">
-<style>
+<style><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .calculator {
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .calculator-screen {
+            width: 100%;
+            height: auto;
+            max-height: 80px;
+            border: none;
+            background-color: #252525;
+            color: white;
+            text-align: right;
+            padding: 20px;
+            font-size: 2.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            white-space: nowrap;
+        }
+
+        .calculator-keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        button {
+            height: 60px;
+            border-radius: 8px;
+            border: none;
+            background-color: #f4f4f4;
+            font-size: 1.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button:hover {
+            background-color: #e4e4e4;
+        }
+
+        button.operator {
+            background-color: #ff9500;
+            color: white;
+        }
+
+        button.equal-sign {
+            grid-column: span 4;
+        }
+
+        button.all-clear {
+            background-color: #ff3b30;
+            color: white;
+        }
+
+        @media (max-width: 400px) {
+            .calculator-screen {
+                font-size: 2rem;
+                padding: 10px;
+            }
+
+            button {
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .calculator-keys {
+                grid-gap: 5px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="calculator-screen" value="" disabled />
+        <div class="calculator-keys">
+            <button class="operator" value="+">+</button>
+            <button class="operator" value="-">-</button>
+            <button class="operator" value="*">&times;</button>
+            <button class="operator" value="/">&divide;</button>
+
+            <button value="7">7</button>
+            <button value="8">8</button>
+            <button value="9">9</button>
+
+            <button value="4">4</button>
+            <button value="5">5</button>
+            <button value="6">6</button>
+
+            <button value="1">1</button>
+            <button value="2">2</button>
+            <button value="3">3</button>
+
+            <button value="0">0</button>
+            <button value=".">.</button>
+            <button class="all-clear" value="all-clear">AC</button>
+
+            <button class="operator" value="sqrt">√</button>
+            <button class="operator" value="square">x²</button>
+            <button class="operator" value="sin">sin</button>
+            <button class="operator" value="cos">cos</button>
+            <button class="operator" value="tan">tan</button>
+
+            <button class="equal-sign operator" value="=">=</button>
+        </div>
+    </div>
+    <script>
+        const calculator = {
+            displayValue: '0',
+            firstOperand: null,
+            waitingForSecondOperand: false,
+            operator: null,
+        };
+
+        function inputDigit(digit) {
+            const { displayValue, waitingForSecondOperand } = calculator;
+
+            if (waitingForSecondOperand === true) {
+                calculator.displayValue = digit;
+                calculator.waitingForSecondOperand = false;
+            } else {
+                calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+            }
+        }
+
+        function inputDecimal(dot) {
+            if (calculator.waitingForSecondOperand === true) return;
+
+            if (!calculator.displayValue.includes(dot)) {
+                calculator.displayValue += dot;
+            }
+        }
+
+        function handleOperator(nextOperator) {
+            const { firstOperand, displayValue, operator } = calculator;
+            const inputValue = parseFloat(displayValue);
+
+            if (operator && calculator.waitingForSecondOperand) {
+                calculator.operator = nextOperator;
+                return;
+            }
+
+            if (firstOperand == null) {
+                calculator.firstOperand = inputValue;
+            } else if (operator) {
+                const currentValue = firstOperand || 0;
+                const result = performCalculation[operator](currentValue, inputValue);
+
+                calculator.displayValue = String(result);
+                calculator.firstOperand = result;
+            }
+
+            calculator.waitingForSecondOperand = true;
+            calculator.operator = nextOperator;
+        }
+
+        const performCalculation = {
+            '/': (firstOperand, secondOperand) => secondOperand === 0 ? 'Error' : firstOperand / secondOperand,
+            '*': (firstOperand, secondOperand) => firstOperand * secondOperand,
+            '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+            '-': (firstOperand, secondOperand) => firstOperand - secondOperand,
+            '=': (firstOperand, secondOperand) => secondOperand,
+            'sqrt': (firstOperand) => Math.sqrt(firstOperand),
+            'square': (firstOperand) => firstOperand * firstOperand,
+            'sin': (firstOperand) => Math.sin(firstOperand),
+            'cos': (firstOperand) => Math.cos(firstOperand),
+            'tan': (firstOperand) => Math.tan(firstOperand),
+        };
+
+        function resetCalculator() {
+            calculator.displayValue = '0';
+            calculator.firstOperand = null;
+            calculator.waitingForSecondOperand = false;
+            calculator.operator = null;
+        }
+
+        function updateDisplay() {
+            const display = document.querySelector('.calculator-screen');
+            display.value = calculator.displayValue;
+        }
+
+        updateDisplay();
+
+        const keys = document.querySelector('.calculator-keys');
+        keys.addEventListener('click', (event) => {
+            const { target } = event;
+            const { value } = target;
+            if (!target.matches('button')) {
+                return;
+            }
+
+            switch (value) {
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                case '=':
+                case 'sqrt':
+                case 'square':
+                case 'sin':
+                case 'cos':
+                case 'tan':
+                    handleOperator(value);
+                    break;
+                case '.':
+                    inputDecimal(value);
+                    break;
+                case 'all-clear':
+                    resetCalculator();
+                    break;
+                default:
+                    if (Number.isInteger(parseFloat(value))) {
+                        inputDigit(value);
+                    }
+            }
+
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>
+
 body {
     display: flex;
     justify-content: center;
