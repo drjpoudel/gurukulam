@@ -35,14 +35,14 @@ const students = [
         name: 'Diwakar Nepal',
         class: '8',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 24,
+            Karmakanda: 8,
+            SanskritBhasha: 18,
+            Vyakarana: 9
         }
     },
     {
@@ -50,14 +50,14 @@ const students = [
         name: 'Vishnu Ghimire',
         class: '8',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 21,
+            Karmakanda: 23,
+            SanskritBhasha: 15,
+            Vyakarana: 10
         }
     },
     {
@@ -65,14 +65,14 @@ const students = [
         name: 'Nishchal Kafle',
         class: '8',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 24,
+            Karmakanda: 18,
+            SanskritBhasha: 18,
+            Vyakarana: 20
         }
     },
  {
