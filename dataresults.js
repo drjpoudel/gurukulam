@@ -74,6 +74,6 @@
                     SanskritBhasha: 38,
                     Vyakarana: 35
                 }
-                       },
+                       }
             // Add more student data here
         ];
