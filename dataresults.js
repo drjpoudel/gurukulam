@@ -74,6 +74,186 @@ const students = [
             SanskritBhasha: 38,
             Vyakarana: 35
         }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
+    },
+ {
+        id: '2081A004',
+        name: 'Vishnu Ghimire',
+        class: '8',
+        results: {
+            Nepali: 38,
+            Math: 40,
+            English: 35,
+            Social: 39,
+            Veda: 36,
+            Karmakanda: 37,
+            SanskritBhasha: 38,
+            Vyakarana: 35
+        }
     }
     // Add more student data here
 ];
