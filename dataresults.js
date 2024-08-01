@@ -29,7 +29,7 @@
                     SanskritBhasha: 38,
                     Vyakarana: 35
                 }
-                       },
+                },
                  {
                 id: 2081A003,
                 name: 'Diwakar Nepal',
@@ -44,7 +44,7 @@
                     SanskritBhasha: 38,
                     Vyakarana: 35
                 }
-            },
+                 },
              {
                 id: 2081A004,
                 name: 'Vishnu Ghimire',
@@ -59,7 +59,7 @@
                     SanskritBhasha: 38,
                     Vyakarana: 35
                 }
-                       },
+                },
                   {
                 id: 2081A005,
                 name: 'Nishchal Kafle',
@@ -74,6 +74,6 @@
                     SanskritBhasha: 38,
                     Vyakarana: 35
                 }
-                       }
+                    }
             // Add more student data here
         ];
