@@ -140,14 +140,14 @@ const students = [
         name: 'Sandesha Wagle',
         class: '6',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 20,
+            Karmakanda: 15,
+            SanskritBhasha: 20,
+            Vyakarana: 12
         }
     },
  {
@@ -155,14 +155,14 @@ const students = [
         name: 'Arabinda Pokhrel',
         class: '6',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 21,
+            Karmakanda: 10,
+            SanskritBhasha: 18,
+            Vyakarana: 5
         }
     },
  {
@@ -170,14 +170,14 @@ const students = [
         name: 'Diwakar Kafle',
         class: '6',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 35,
+            Karmakanda: 30,
+            SanskritBhasha: 35,
+            Vyakarana: 31
         }
     },
  {
@@ -185,14 +185,14 @@ const students = [
         name: 'Pitambar Niraula',
         class: '6',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 30,
+            Karmakanda: 22,
+            SanskritBhasha: 25,
+            Vyakarana: 20
         }
     },
  {
@@ -200,14 +200,14 @@ const students = [
         name: 'Arun Chapagain',
         class: '6',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 20,
+            Karmakanda: 20,
+            SanskritBhasha: 20,
+            Vyakarana: 25
         }
     },
  {
@@ -215,14 +215,14 @@ const students = [
         name: 'Aditya Poudel',
         class: '6',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 20,
+            Karmakanda: 10,
+            SanskritBhasha: 22,
+            Vyakarana: 18
         }
     },
  {
@@ -230,14 +230,14 @@ const students = [
         name: 'Bhanubhakta Nepal',
         class: '6',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 15,
+            Karmakanda: 5,
+            SanskritBhasha: 18,
+            Vyakarana: 22
         }
     },
  {
@@ -245,14 +245,14 @@ const students = [
         name: 'Pramit Bhandari',
         class: '5',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 50,
+            Karmakanda: 50,
+            SanskritBhasha: 5,
+            Vyakarana: 1
         }
     },
      {
@@ -260,14 +260,14 @@ const students = [
         name: 'Suraj Kathet',
         class: '5',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 50,
+            Karmakanda: 50,
+            SanskritBhasha: 20,
+            Vyakarana: 10
         }
     },
  {
@@ -275,14 +275,14 @@ const students = [
         name: 'Biplava Gautam',
         class: '5',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 50,
+            Karmakanda: 50,
+            SanskritBhasha: 19,
+            Vyakarana: 20
         }
     },
  {
@@ -290,14 +290,14 @@ const students = [
         name: 'Saksham Ghimire',
         class: '5',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 50,
+            Karmakanda: 50,
+            SanskritBhasha: 5,
+            Vyakarana: 3
         }
     },
  {
@@ -305,14 +305,14 @@ const students = [
         name: 'Govinda Poudel',
         class: '4',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 50,
+            Karmakanda: 50,
+            SanskritBhasha: 25,
+            Vyakarana: 8
         }
     },
  {
@@ -320,14 +320,14 @@ const students = [
         name: 'Padam Koirala',
         class: '4',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 50,
+            Karmakanda: 50,
+            SanskritBhasha: 12,
+            Vyakarana: 10
         }
     },
  {
@@ -335,14 +335,14 @@ const students = [
         name: 'Arjun Dangal',
         class: '4',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 50,
+            Karmakanda: 50,
+            SanskritBhasha: 10,
+            Vyakarana: 5
         }
     },
  {
@@ -350,14 +350,14 @@ const students = [
         name: 'Vikas Ghimire',
         class: '4',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 50,
+            Karmakanda: 50,
+            SanskritBhasha: 10,
+            Vyakarana: 2
         }
     }
     // Add more student data here
