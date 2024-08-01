@@ -80,14 +80,14 @@ const students = [
         name: 'Bhuvan dahal',
         class: '7',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 18,
+            Karmakanda: 25,
+            SanskritBhasha: 16,
+            Vyakarana: 15
         }
     },
  {
@@ -95,14 +95,14 @@ const students = [
         name: ' Bhaskar Koirala',
         class: '7',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 18,
+            Karmakanda: 20,
+            SanskritBhasha: 15,
+            Vyakarana: 10
         }
     },
  {
@@ -110,14 +110,14 @@ const students = [
         name: 'Kushal Bhattarai',
         class: '7',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 19,
+            Karmakanda: 10,
+            SanskritBhasha: 10,
+            Vyakarana: 12
         }
     },
  {
@@ -125,14 +125,14 @@ const students = [
         name: 'Rabin Niraula ',
         class: '7',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 25,
+            Karmakanda: 20,
+            SanskritBhasha: 10,
+            Vyakarana: 10
         }
     },
  {
