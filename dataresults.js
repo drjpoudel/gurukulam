@@ -82,7 +82,7 @@ const students = [
         results: {
             Nepali: 00,
             Math: 08,
-            English: 00,
+            English: 31,
             Social: 00,
             Veda: 18,
             Karmakanda: 25,
@@ -97,7 +97,7 @@ const students = [
         results: {
             Nepali: 00,
             Math: 20,
-            English: 00,
+            English: 17,
             Social: 00,
             Veda: 18,
             Karmakanda: 20,
@@ -112,7 +112,7 @@ const students = [
         results: {
             Nepali: 00,
             Math: 02,
-            English: 00,
+            English: 15,
             Social: 00,
             Veda: 19,
             Karmakanda: 10,
@@ -127,7 +127,7 @@ const students = [
         results: {
             Nepali: 00,
             Math: 01,
-            English: 00,
+            English: 15,
             Social: 00,
             Veda: 25,
             Karmakanda: 20,
