@@ -5,14 +5,14 @@ const students = [
         name: 'Rosan Neupane',
         class: '8',
         results: {
-            Nepali: 45,
-            Math: 48,
-            English: 44,
-            Social: 47,
-            Veda: 42,
-            Karmakanda: 46,
-            SanskritBhasha: 45,
-            Vyakarana: 43
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 35,
+            Karmakanda: 29,
+            SanskritBhasha: 25,
+            Vyakarana: 30
         }
     },
     {
@@ -20,14 +20,14 @@ const students = [
         name: 'Yaswanta Bhattarai',
         class: '8',
         results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
+            Nepali: 00,
+            Math: 00,
+            English: 00,
+            Social: 00,
+            Veda: 30,
+            Karmakanda: 24,
+            SanskritBhasha: 27,
+            Vyakarana: 23
         }
     },
     {
