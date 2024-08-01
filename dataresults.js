@@ -3,7 +3,7 @@
             {
                 id: 2081A001,
                 name: 'Rosan Neupane',
-                class: '10',
+                class: '8',
                 results: {
                     Nepali: 45,
                     Math: 48,
@@ -18,7 +18,7 @@
             {
                 id: 2081A002,
                 name: 'Yaswanta Bhattarai',
-                class: '10',
+                class: '8',
                 results: {
                     Nepali: 38,
                     Math: 40,
@@ -31,9 +31,9 @@
                 }
                        },
                  {
-                id: 2081A002,
+                id: 2081A003,
                 name: 'Diwakar Nepal',
-                class: '10',
+                class: '8',
                 results: {
                     Nepali: 38,
                     Math: 40,
@@ -46,9 +46,9 @@
                 }
             },
              {
-                id: 2081A002,
+                id: 2081A004,
                 name: 'Vishnu Ghimire',
-                class: '10',
+                class: '8',
                 results: {
                     Nepali: 38,
                     Math: 40,
@@ -61,9 +61,9 @@
                 }
                        },
                   {
-                id: 2081A002,
+                id: 2081A005,
                 name: 'Nishchal Kafle',
-                class: '10',
+                class: '8',
                 results: {
                     Nepali: 38,
                     Math: 40,
