@@ -256,8 +256,8 @@ const students = [
         }
     },
      {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
+        id: '2081A018',
+        name: 'Suraj Kathet',
         class: '5',
         results: {
             Nepali: 38,
@@ -271,8 +271,8 @@ const students = [
         }
     },
  {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
+        id: '2081A019',
+        name: 'Biplava Gautam',
         class: '5',
         results: {
             Nepali: 38,
@@ -286,8 +286,8 @@ const students = [
         }
     },
  {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
+        id: '2081A020',
+        name: 'Saksham Ghimire',
         class: '5',
         results: {
             Nepali: 38,
@@ -301,9 +301,9 @@ const students = [
         }
     },
  {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
-        class: '5',
+        id: '2081A021',
+        name: 'Govinda Poudel',
+        class: '4',
         results: {
             Nepali: 38,
             Math: 40,
@@ -316,9 +316,9 @@ const students = [
         }
     },
  {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
-        class: '5',
+        id: '2081A022',
+        name: 'Padam Koirala',
+        class: '4',
         results: {
             Nepali: 38,
             Math: 40,
@@ -331,9 +331,9 @@ const students = [
         }
     },
  {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
-        class: '5',
+        id: '2081A023',
+        name: 'Arjun Dangal',
+        class: '4',
         results: {
             Nepali: 38,
             Math: 40,
@@ -346,54 +346,9 @@ const students = [
         }
     },
  {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
-        class: '5',
-        results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
-        }
-    },
- {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
-        class: '5',
-        results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
-        }
-    },
- {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
-        class: '5',
-        results: {
-            Nepali: 38,
-            Math: 40,
-            English: 35,
-            Social: 39,
-            Veda: 36,
-            Karmakanda: 37,
-            SanskritBhasha: 38,
-            Vyakarana: 35
-        }
-    },
- {
-        id: '2081A017',
-        name: 'Pramit Bhandari',
-        class: '5',
+        id: '2081A024',
+        name: 'Vikas Ghimire',
+        class: '4',
         results: {
             Nepali: 38,
             Math: 40,
