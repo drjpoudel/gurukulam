@@ -77,8 +77,8 @@ const students = [
     },
  {
         id: '2081A006',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Bhuvan dahal',
+        class: '7',
         results: {
             Nepali: 38,
             Math: 40,
@@ -92,8 +92,8 @@ const students = [
     },
  {
         id: '2081A007',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: ' Bhaskar Koirala',
+        class: '7',
         results: {
             Nepali: 38,
             Math: 40,
@@ -107,8 +107,8 @@ const students = [
     },
  {
         id: '2081A008',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Kushal Bhattarai',
+        class: '7',
         results: {
             Nepali: 38,
             Math: 40,
@@ -122,8 +122,8 @@ const students = [
     },
  {
         id: '2081A009',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Rabin Niraula ',
+        class: '7',
         results: {
             Nepali: 38,
             Math: 40,
@@ -137,8 +137,8 @@ const students = [
     },
  {
         id: '2081A010',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Sandesha Wagle',
+        class: '6',
         results: {
             Nepali: 38,
             Math: 40,
@@ -152,8 +152,8 @@ const students = [
     },
  {
         id: '2081A011',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Arabinda Pokhrel',
+        class: '6',
         results: {
             Nepali: 38,
             Math: 40,
@@ -167,8 +167,8 @@ const students = [
     },
  {
         id: '2081A012',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Diwakar Kafle',
+        class: '6',
         results: {
             Nepali: 38,
             Math: 40,
@@ -182,8 +182,8 @@ const students = [
     },
  {
         id: '2081A013',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Pitambar Niraula',
+        class: '6',
         results: {
             Nepali: 38,
             Math: 40,
@@ -197,8 +197,8 @@ const students = [
     },
  {
         id: '2081A014',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Arun Chapagain',
+        class: '6',
         results: {
             Nepali: 38,
             Math: 40,
@@ -212,8 +212,8 @@ const students = [
     },
  {
         id: '2081A015',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Aditya Poudel',
+        class: '6',
         results: {
             Nepali: 38,
             Math: 40,
@@ -227,8 +227,8 @@ const students = [
     },
  {
         id: '2081A016',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Bhanubhakta Nepal',
+        class: '6',
         results: {
             Nepali: 38,
             Math: 40,
@@ -242,8 +242,8 @@ const students = [
     },
  {
         id: '2081A017',
-        name: 'Vishnu Ghimire',
-        class: '8',
+        name: 'Pramit Bhandari',
+        class: '5',
         results: {
             Nepali: 38,
             Math: 40,
