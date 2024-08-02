@@ -6,7 +6,7 @@ const students = [
         class: '8',
         results: {
             Nepali: 00,
-            Math: 00,
+            Math: 35,
             English: 38,
             Social: 00,
             Veda: 35,
@@ -21,7 +21,7 @@ const students = [
         class: '8',
         results: {
             Nepali: 00,
-            Math: 00,
+            Math: 14,
             English: 29,
             Social: 00,
             Veda: 30,
@@ -66,7 +66,7 @@ const students = [
         class: '8',
         results: {
             Nepali: 00,
-            Math: 00,
+            Math: 16,
             English: 29,
             Social: 00,
             Veda: 24,
