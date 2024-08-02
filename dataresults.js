@@ -36,7 +36,7 @@ const students = [
         class: '8',
         results: {
             Nepali: 00,
-            Math: 00,
+            Math: 01,
             English: 12,
             Social: 00,
             Veda: 24,
