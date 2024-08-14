@@ -1,5 +1,4 @@
-  
-        function convertText() {
+function convertText() {
             const text = document.getElementById('input-text').value;
             const font = document.getElementById('font-selector').value;
             const converted = preeti(text, font); // Assuming `preeti` function is defined in preeti.js
