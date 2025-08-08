@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>नूतन-गुरुकुल-योजनम्</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
+    <!-- Link to the same style.css for consistent styling, if available. For this self-contained example, styles are embedded. -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #f7931e; /* Orange */
+            --secondary-color: #5cb85c; /* Green */
+            --bg-white: #ffffff;
+            --text-dark: #333333;
+            --border-color: #dddddd;
+        }
+
+        /* Basic Reset & Body Styles */
+        body {
+            font-family: 'Tiro Devanagari Sanskrit', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: var(--text-dark);
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+        }
+
+        /* App Container & Layout */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+            background-color: var(--bg-white);
+            position: relative;
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        main.app-content {
+            flex-grow: 1; /* Allows content to take available space */
+            padding: 70px 15px 80px 15px; /* Adjust padding for fixed header/footer */
+        }
+
+        /* Header Styles */
+        header.app-header {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            max-width: 480px; /* Match app-container max-width */
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-sizing: border-box; /* Include padding in width */
+        }
+        header.app-header h1 {
+            margin: 0;
+            font-size: 1.4em;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        /* Footer Styles */
+        footer.app-footer {
+            background-color: var(--bg-white);
+            border-top: 1px solid #e0e0e0;
+            padding: 5px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px; /* Match app-container max-width */
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+            box-sizing: border-box; /* Include padding in width */
+        }
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #888;
+            font-size: 0.8em;
+            padding: 5px;
+            font-weight: bold;
+            flex-basis: 0;
+            flex-grow: 1;
+            transition: color 0.3s;
+        }
+        .footer-item.active, .footer-item:hover { color: var(--primary-color); }
+        .footer-icon { font-size: 20px; margin-bottom: 2px; }
+
+        /* Form Specific Styles */
+        #addGurukulamForm {
+            padding: 20px;
+            background-color: var(--bg-white);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+            margin-top: 0px; /* Adjust as needed for header */
+        }
+        #addGurukulamForm h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            color: var(--text-dark);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+        #addGurukulamForm .form-group {
+            margin-bottom: 15px;
+        }
+        #addGurukulamForm label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+        #addGurukulamForm .form-input,
+        #addGurukulamForm textarea.form-input {
+            width: calc(100% - 24px); /* Account for padding */
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Tiro Devanagari Sanskrit', serif;
+            box-sizing: border-box; /* Include padding in width */
+        }
+        #addGurukulamForm textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+        #addGurukulamForm .form-button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #addGurukulamForm .form-button:hover {
+            background-color: #e68a2e;
+        }
+        /* Update button style for edit mode */
+        #addGurukulamForm .form-button.update-mode {
+            background-color: var(--secondary-color); /* Green for update */
+        }
+        #addGurukulamForm .form-button.update-mode:hover {
+            background-color: #4CAF50; /* Darker green */
+        }
+
+        /* Image Upload Area Styles */
+        .image-upload-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #fcfcfc;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+        .image-upload-wrapper:hover {
+            border-color: var(--primary-color);
+            background-color: #f5f5f5;
+        }
+        .image-upload-wrapper i {
+            font-size: 3em;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        .image-upload-wrapper p {
+            font-size: 0.9em;
+            color: #777;
+            margin: 0;
+        }
+        #imagePreview {
+            margin-top: 15px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            display: none; /* Hidden by default */
+        }
+
+        /* Gurukulam List Section Styles */
+        .gurukulam-list-section {
+            padding: 20px;
+            background-color: var(--bg-white);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+            margin-top: 20px;
+            margin-bottom: 20px; /* Space before footer */
+        }
+        .gurukulam-list-section h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            color: var(--text-dark);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Spacing between gurukulam cards */
+        }
+        .gurukulam-card {
+            background-color: #fcfcfc;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .gurukulam-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+        }
+        .gurukulam-card h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.3em;
+            color: var(--primary-color);
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
+        }
+        .gurukulam-card p {
+            margin: 0;
+            font-size: 0.95em;
+            color: var(--text-dark);
+        }
+        .gurukulam-card p strong {
+            color: #555;
+            font-weight: 600;
+        }
+        .gurukulam-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            border: 1px solid #f0f0f0;
+        }
+        .gurukulam-card .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+            border-top: 1px dashed #eee;
+            padding-top: 10px;
+        }
+        .gurukulam-card .action-button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-family: 'Tiro Devanagari Sanskrit', serif;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .gurukulam-card .action-button.edit {
+            background-color: var(--secondary-color); /* Green */
+            color: white;
+        }
+        .gurukulam-card .action-button.edit:hover {
+            background-color: #4CAF50;
+            transform: translateY(-1px);
+        }
+        .gurukulam-card .action-button.delete {
+            background-color: #f44336; /* Red */
+            color: white;
+        }
+        .gurukulam-card .action-button.delete:hover {
+            background-color: #da190b;
+            transform: translateY(-1px);
+        }
+        #noGurukulMessage {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            background-color: #fefefe;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <h1>नूतन-गुरुकुल-योजनम्</h1>
+        </header>
+
+        <main class="app-content">
+            <form id="addGurukulamForm">
+                <h2 id="formTitle">नूतन-गुरुकुल-विवरणानि प्रविशतु</h2>
+                
+                <div class="form-group">
+                    <label for="gurukulamName">गुरुकुलस्य नाम:</label>
+                    <input type="text" id="gurukulamName" class="form-input" required placeholder="यथा - लंस गुरुकुलम्">
+                </div>
+
+                <div class="form-group">
+                    <label for="gurukulamDescription">विवरणम्:</label>
+                    <textarea id="gurukulamDescription" class="form-input" rows="5" required placeholder="गुरुकुलस्य विषये संक्षेपतः लिखतु"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="gurukulamAddress">स्थानम् (पता):</label>
+                    <input type="text" id="gurukulamAddress" class="form-input" required placeholder="यथा - बीरनगरम्, नेपालम्">
+                </div>
+
+                <div class="form-group">
+                    <label for="gurukulamContact">सम्पर्क-सूत्रम् (दूरभाषः):</label>
+                    <input type="tel" id="gurukulamContact" class="form-input" placeholder="यथा - +९७७ ९८० ००० ०००१">
+                </div>
+
+                <div class="form-group">
+                    <label for="gurukulamEmail">विद्युत्पत्रम् (ईमेल):</label>
+                    <input type="email" id="gurukulamEmail" class="form-input" placeholder="यथा - info@gurukul.edu">
+                </div>
+
+                <div class="form-group">
+                    <label for="gurukulamImage">चित्रम् उपनयतु:</label>
+                    <label for="gurukulamImage" class="image-upload-wrapper">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>चित्रं चिनोतु वा अत्र आकर्षयतु</p>
+                        <input type="file" id="gurukulamImage" accept="image/*" style="display: none;">
+                    </label>
+                    <img id="imagePreview" src="#" alt="चित्र पूर्वावलोकनम्" style="display: none;">
+                </div>
+                
+                <button type="submit" class="form-button">गुरुकुलं योजयतु</button>
+
+                <p style="text-align: center; font-size: 0.9em; color: red; margin-top: 20px;">
+                    **सूचना:** चित्रोपनयनं तथा विवरणस्य रक्षणं सर्वर-पक्षे आवश्यकम्। इदं केवलं प्रतिरूपं अस्ति।
+                    (Note: Image upload and data saving require server-side. This is only a prototype.)
+                </p>
+            </form>
+
+            <section id="gurukulamListSection" class="gurukulam-list-section">
+                <h2>उपलब्ध-गुरुकुलानि</h2>
+                <div id="gurukulamListContainer" class="list-container">
+                    <!-- Gurukulam cards will be inserted here by JavaScript -->
+                    <p id="noGurukulMessage">अधुना कोऽपि गुरुकुलं न योजितम्।</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <a href="index.html#about" class="footer-item"><div class="footer-icon"><i class="fas fa-home"></i></div><div>मुख्यपृष्ठम्</div></a>
+            <a href="#" class="footer-item active"><div class="footer-icon"><i class="fas fa-plus-circle"></i></div><div>योजनम्</div></a>
+            <a href="admin_login.html" target="_blank" rel="noopener noreferrer" class="footer-item"><div class="footer-icon"><i class="fas fa-user-shield"></i></div><div>प्रशासकः</div></a>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const gurukulamNameInput = document.getElementById('gurukulamName');
+        const gurukulamDescriptionInput = document.getElementById('gurukulamDescription');
+        const gurukulamAddressInput = document.getElementById('gurukulamAddress');
+        const gurukulamContactInput = document.getElementById('gurukulamContact');
+        const gurukulamEmailInput = document.getElementById('gurukulamEmail');
+        const gurukulamImageInput = document.getElementById('gurukulamImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const addGurukulamForm = document.getElementById('addGurukulamForm');
+        const gurukulamListContainer = document.getElementById('gurukulamListContainer');
+        const noGurukulMessage = document.getElementById('noGurukulMessage');
+        const formSubmitButton = addGurukulamForm.querySelector('.form-button');
+        const formTitle = document.getElementById('formTitle');
+
+        let gurukuls = []; // Array to store gurukul data
+        let editingGurukulamId = null; // To track which gurukulam is being edited
+
+        // --- Image Preview Logic ---
+        gurukulamImageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.src = '#';
+                imagePreview.style.display = 'none';
+            }
+        });
+
+        // --- Data Persistence (using localStorage for client-side demo) ---
+        function saveGurukuls() {
+            try {
+                localStorage.setItem('gurukuls', JSON.stringify(gurukuls));
+                console.log('Gurukuls saved to localStorage:', gurukuls);
+            } catch (e) {
+                console.error('Error saving to localStorage:', e);
+                alert('डेटा सहेजने में त्रुटि हुई। कृपया अपने ब्राउज़र सेटिंग्स जांचें।'); // Error saving data
+            }
+        }
+
+        function loadGurukuls() {
+            try {
+                const storedGurukuls = localStorage.getItem('gurukuls');
+                if (storedGurukuls) {
+                    gurukuls = JSON.parse(storedGurukuls);
+                    console.log('Gurukuls loaded from localStorage:', gurukuls);
+                } else {
+                    gurukuls = [];
+                    console.log('No gurukuls found in localStorage, starting with empty array.');
+                }
+            } catch (e) {
+                console.error('Error loading from localStorage:', e);
+                gurukuls = []; // Reset if parsing fails
+                alert('डेटा लोड करने में त्रुटि हुई।'); // Error loading data
+            }
+            renderGurukulList(); // Render the list on page load
+        }
+
+        // --- Gurukul List Rendering ---
+        function renderGurukulList() {
+            gurukulamListContainer.innerHTML = ''; // Clear existing list
+            console.log('Rendering gurukuls. Current gurukuls array length:', gurukuls.length);
+
+            if (gurukuls.length === 0) {
+                noGurukulMessage.style.display = 'block';
+                console.log('No gurukuls to display. Showing "no data" message.');
+            } else {
+                noGurukulMessage.style.display = 'none';
+                const sortedGurukuls = [...gurukuls].sort((a, b) => a.name.localeCompare(b.name, 'sa'));
+
+                sortedGurukuls.forEach(gurukul => {
+                    const card = document.createElement('div');
+                    card.classList.add('gurukulam-card');
+                    card.setAttribute('data-id', gurukul.id);
+
+                    card.innerHTML = `
+                        <h3>${gurukul.name}</h3>
+                        <p><strong>विवरणम्:</strong> ${gurukul.description || 'उपलब्धं नहि'}</p>
+                        <p><strong>स्थानम्:</strong> ${gurukul.address || 'उपलब्धं नहि'}</p>
+                        <p><strong>सम्पर्क-सूत्रम्:</strong> ${gurukul.contact || 'उपलब्धं नहि'}</p>
+                        <p><strong>विद्युत्पत्रम्:</strong> ${gurukul.email || 'उपलब्धं नहि'}</p>
+                        ${gurukul.imageUrl ? `<img src="${gurukul.imageUrl}" alt="गुरुकुल चित्रम्">` : ''}
+                        <div class="actions">
+                            <button class="action-button edit" data-id="${gurukul.id}">सम्पादयतु</button>
+                            <button class="action-button delete" data-id="${gurukul.id}">निष्कासयतु</button>
+                        </div>
+                    `;
+                    gurukulamListContainer.appendChild(card);
+                    console.log('Appended card for:', gurukul.name);
+                });
+                console.log('List container innerHTML after rendering:', gurukulamListContainer.innerHTML);
+                addEventListenersToButtons(); // Attach listeners after rendering
+            }
+        }
+
+        // --- Event Listeners for Edit/Delete Buttons ---
+        function addEventListenersToButtons() {
+            document.querySelectorAll('.action-button.edit').forEach(button => {
+                button.onclick = (event) => editGurukulam(event.target.dataset.id);
+            });
+            document.querySelectorAll('.action-button.delete').forEach(button => {
+                button.onclick = (event) => deleteGurukulam(event.target.dataset.id);
+            });
+        }
+
+        // --- Edit Gurukulam Functionality ---
+        function editGurukulam(id) {
+            const gurukulToEdit = gurukuls.find(g => g.id === id);
+            if (gurukulToEdit) {
+                console.log('Editing gurukul:', gurukulToEdit.name);
+                gurukulamNameInput.value = gurukulToEdit.name;
+                gurukulamDescriptionInput.value = gurukulToEdit.description;
+                gurukulamAddressInput.value = gurukulToEdit.address;
+                gurukulamContactInput.value = gurukulToEdit.contact;
+                gurukulamEmailInput.value = gurukulToEdit.email;
+
+                // Display image if available
+                if (gurukulToEdit.imageUrl) {
+                    imagePreview.src = gurukulToEdit.imageUrl;
+                    imagePreview.style.display = 'block';
+                } else {
+                    imagePreview.src = '#';
+                    imagePreview.style.display = 'none';
+                }
+
+                formTitle.textContent = 'गुरुकुलं सम्पादयतु'; // Change form title
+                formSubmitButton.textContent = 'गुरुकुलं अद्यतयतु'; // Change button text
+                formSubmitButton.classList.add('update-mode'); // Add class for styling
+                editingGurukulamId = id; // Set the ID of the gurukulam being edited
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top to show form
+            } else {
+                console.warn('Gurukul to edit not found with ID:', id);
+            }
+        }
+
+        // --- Delete Gurukulam Functionality ---
+        function deleteGurukulam(id) {
+            if (confirm('किं भवान् निश्चितः यत् इदं गुरुकुलं निष्कासयितुम् इच्छति?')) {
+                const initialLength = gurukuls.length;
+                gurukuls = gurukuls.filter(g => g.id !== id);
+                if (gurukuls.length < initialLength) {
+                    console.log('Gurukul with ID', id, 'deleted.');
+                    saveGurukuls();
+                    renderGurukulList();
+                    alert('गुरुकुलं सफलतापूर्वकं निष्कासितम्।');
+                } else {
+                    console.warn('Attempted to delete non-existent gurukul with ID:', id);
+                }
+            }
+        }
+
+        // --- Form Submission Logic (Add/Update) ---
+        addGurukulamForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            console.log('Form submitted.');
+
+            const name = gurukulamNameInput.value;
+            const description = gurukulamDescriptionInput.value;
+            const address = gurukulamAddressInput.value;
+            const contact = gurukulamContactInput.value;
+            const email = gurukulamEmailInput.value;
+            const file = gurukulamImageInput.files[0];
+
+            // Handle image asynchronously
+            if (file) {
+                console.log('Image file selected. Reading file...');
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageUrl = e.target.result; // Base64 string
+                    processGurukulamData(name, description, address, contact, email, imageUrl);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                console.log('No new image file selected.');
+                // If no new file selected, retain existing image URL if in edit mode
+                let imageUrl = '';
+                if (editingGurukulamId) {
+                    const existingGurukul = gurukuls.find(g => g.id === editingGurukulamId);
+                    imageUrl = existingGurukul ? existingGurukul.imageUrl : '';
+                    console.log('Retaining existing image URL:', imageUrl);
+                }
+                processGurukulamData(name, description, address, contact, email, imageUrl);
+            }
+        });
+
+        // Helper function to process and save/update gurukulam data
+        function processGurukulamData(name, description, address, contact, email, imageUrl) {
+            if (editingGurukulamId) {
+                // Update existing gurukulam
+                gurukuls = gurukuls.map(g => {
+                    if (g.id === editingGurukulamId) {
+                        return { ...g, name, description, address, contact, email, imageUrl };
+                    }
+                    return g;
+                });
+                alert('गुरुकुल-विवरणानि अद्यतनीकृतानि! (सर्वर-पक्षे रक्षणं आवश्यकम्)');
+                console.log('Gurukul updated. New gurukuls array:', gurukuls);
+            } else {
+                // Add new gurukulam
+                const newGurukulam = {
+                    id: Date.now().toString(), // Simple unique ID
+                    name,
+                    description,
+                    address,
+                    contact,
+                    email,
+                    imageUrl
+                };
+                gurukuls.push(newGurukulam);
+                alert('नूतन-गुरुकुलं सफलतापूर्वकं योजितम्! (सर्वर-पक्षे रक्षणं आवश्यकम्)');
+                console.log('New gurukul added. New gurukuls array:', gurukuls);
+            }
+
+            saveGurukuls();
+            renderGurukulList();
+            
+            // Reset form and editing state
+            addGurukulamForm.reset();
+            imagePreview.src = '#';
+            imagePreview.style.display = 'none';
+            formTitle.textContent = 'नूतन-गुरुकुल-विवरणानि प्रविशतु'; // Reset form title
+            formSubmitButton.textContent = 'गुरुकुलं योजयतु';
+            formSubmitButton.classList.remove('update-mode');
+            editingGurukulamId = null;
+            console.log('Form reset and editing state cleared.');
+        }
+
+        // --- URL Parameter Handling for Viewing/Editing ---
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // On page load, check for gurukulamId in URL
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM Content Loaded. Loading gurukuls...');
+            loadGurukuls(); // Always load all gurukuls first to ensure data is available
+
+            const gurukulamIdFromUrl = getUrlParameter('gurukulamId');
+            if (gurukulamIdFromUrl) {
+                console.log('Gurukulam ID found in URL:', gurukulamIdFromUrl);
+                editGurukulam(gurukulamIdFromUrl); // Use the existing edit function to populate form
+            } else {
+                console.log('No Gurukulam ID found in URL. Operating in Add mode.');
+            }
+        });
+    </script>
+
+</body>
+</html>
